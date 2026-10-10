@@ -37,6 +37,10 @@ html.lenis body {
   overflow: hidden;
 }
 
+html {
+  overflow-x: clip;
+}
+
 body {
   margin: 0;
   background: var(--color-ink);

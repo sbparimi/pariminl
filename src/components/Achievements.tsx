@@ -76,10 +76,10 @@ export default function Achievements() {
             {certifications.map((c, i) => (
               <motion.a
                 key={c.name}
-                href={c.link}
+                href={c.link || undefined}
                 target="_blank"
                 rel="noreferrer"
-                data-cursor="link"
+                data-cursor={c.link ? "link" : undefined}
                 className="group relative flex w-[230px] shrink-0 snap-start flex-col justify-between rounded-xl bg-ink-2 p-4 ring-1 ring-white/10 transition hover:-translate-y-1 hover:ring-white/30"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -88,7 +88,7 @@ export default function Achievements() {
               >
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-crimson-2">{c.issuer}</span>
-                  <span className="text-sm text-smoke transition group-hover:text-bone">↗</span>
+                  <span className="text-sm text-smoke transition group-hover:text-bone">{c.link ? "↗" : ""}</span>
                 </div>
                 <p className="mt-6 text-sm font-medium leading-snug text-bone">{c.name}</p>
               </motion.a>

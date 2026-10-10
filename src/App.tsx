@@ -1,10 +1,10 @@
 import { lazy, Suspense, useCallback, useEffect, useState, type ReactNode } from 'react';
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
-import { viewerProfiles, type ProfileId, type Project, type SectionId } from './data/portfolio';
+import { type Project, type SectionId } from './data/portfolio';
 import { SmoothScrollProvider, useSmoothScroll } from './hooks/smoothScroll';
 import CustomCursor from './components/CustomCursor';
 import OpeningSequence from './components/OpeningSequence';
-import ProfileSelector from './components/ProfileSelector';
+import CinemaAudio from './components/CinemaAudio';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ContinueWatching from './components/ContinueWatching';
@@ -24,18 +24,8 @@ const PlayIntro = lazy(() => import('./components/PlayIntro'));
 const ProjectModal = lazy(() => import('./components/ProjectModal'));
 const ResumeModal = lazy(() => import('./components/ResumeModal'));
 
-type Stage = 'opening' | 'profiles' | 'home';
-
-const STORAGE_KEY = 'sushmita-series-profile';
-
-function readStoredProfile(): ProfileId | null {
-  try {
-    const v = sessionStorage.getItem(STORAGE_KEY);
-    return viewerProfiles.some((p) => p.id === v) ? (v as ProfileId) : null;
-  } catch {
-    return null;
-  }
-}
+type Stage = 'opening' | 'home';
+const order: SectionId[] = ['about', 'journey', 'originals', 'picks', 'skills', 'moments', 'story'];
 
 export default function App() {
   return (
@@ -46,48 +36,17 @@ export default function App() {
 }
 
 function Series() {
-  const stored = readStoredProfile();
-  const [stage, setStage] = useState<Stage>(stored ? 'home' : 'opening');
-  const [profileId, setProfileId] = useState<ProfileId>(stored ?? 'sushmita');
+  const [stage, setStage] = useState<Stage>('opening');
   const [playing, setPlaying] = useState(false);
   const [project, setProject] = useState<Project | null>(null);
   const [resumeOpen, setResumeOpen] = useState(false);
-  const [toast, setToast] = useState<string | null>(null);
-  const { scrollTo, lock, unlock } = useSmoothScroll();
-
-  const order = viewerProfiles.find((p) => p.id === profileId)!.order;
+  const { lock, unlock } = useSmoothScroll();
 
   useEffect(() => {
     if (stage === 'home') return;
     lock();
     return unlock;
   }, [stage, lock, unlock]);
-
-  const pickProfile = useCallback(
-    (id: ProfileId) => {
-      setProfileId(id);
-      try {
-        sessionStorage.setItem(STORAGE_KEY, id);
-      } catch {
-        /* storage unavailable — profile simply won't persist */
-      }
-      if (stage !== 'home') {
-        window.scrollTo(0, 0);
-        setStage('home');
-      } else {
-        const p = viewerProfiles.find((v) => v.id === id)!;
-        setToast(`Now watching as ${p.name} — ${p.blurb.toLowerCase()}`);
-        scrollTo(0, { offset: 0 });
-      }
-    },
-    [stage, scrollTo],
-  );
-
-  useEffect(() => {
-    if (!toast) return;
-    const t = window.setTimeout(() => setToast(null), 3200);
-    return () => clearTimeout(t);
-  }, [toast]);
 
   const closeIntro = useCallback(() => setPlaying(false), []);
   const closeProject = useCallback(() => setProject(null), []);
@@ -109,15 +68,14 @@ function Series() {
       <CustomCursor />
 
       <AnimatePresence>
-        {stage === 'opening' && <OpeningSequence key="opening" onDone={() => setStage('profiles')} />}
-        {stage === 'profiles' && <ProfileSelector key="profiles" onPick={pickProfile} />}
+        {stage === 'opening' && <OpeningSequence key="opening" onDone={(sound) => { window.scrollTo(0, 0); setStage('home'); if (sound) window.dispatchEvent(new Event('portfolio-enable-audio')); }} />}
       </AnimatePresence>
 
       {stage === 'home' && (
         <motion.div initial={{ opacity: 0, scale: 1.03, filter: 'blur(10px)' }} animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }} transition={{ duration: 1, ease: EASE }}>
-          <Navbar order={order} profileId={profileId} onSwitch={pickProfile} />
+          <Navbar order={order} />
           <main>
-            <Hero key={`hero-${profileId}`} onPlay={() => setPlaying(true)} onResume={() => setResumeOpen(true)} profileId={profileId} />
+            <Hero onPlay={() => setPlaying(true)} />
             <ContinueWatching order={order} />
             {order.map((id) => (
               <Scene key={id} id={id} className={id === 'originals' ? '!py-0 sm:!py-0' : ''}>
@@ -129,25 +87,14 @@ function Series() {
         </motion.div>
       )}
 
+      <CinemaAudio visible={stage === 'home'} active={stage === 'home' && !playing && !project && !resumeOpen} />
+
       <Suspense fallback={null}>
         <AnimatePresence>{playing && <PlayIntro key="intro" onClose={closeIntro} />}</AnimatePresence>
         <AnimatePresence>{project && <ProjectModal key="project" project={project} onClose={closeProject} onSwitch={setProject} />}</AnimatePresence>
         <AnimatePresence>{resumeOpen && <ResumeModal key="resume" onClose={closeResume} />}</AnimatePresence>
       </Suspense>
 
-      <AnimatePresence>
-        {toast && (
-          <motion.div
-            role="status"
-            className="glass fixed bottom-6 left-1/2 z-[150] w-[min(92vw,420px)] -translate-x-1/2 rounded-xl px-5 py-3 text-center text-sm text-bone"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 30 }}
-          >
-            {toast}
-          </motion.div>
-        )}
-      </AnimatePresence>
     </LayoutGroup>
   );
 }
