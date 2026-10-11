@@ -68,7 +68,7 @@ function Series() {
     <LayoutGroup>
       <div className="grain" aria-hidden />
       <CustomCursor />
-      <CinemaAudio active={stage === 'home'} visible={stage === 'home'} />
+      <CinemaAudio active={stage === 'home' && !playing && !project && !resumeOpen} visible={stage === 'home' && !playing && !project && !resumeOpen} />
       <AnimatePresence>
         {stage === 'opening' && <OpeningSequence key="opening" onDone={(withSound = false) => { setStage('home'); if (withSound) window.dispatchEvent(new Event('portfolio-enable-audio')); }} />}
       </AnimatePresence>
