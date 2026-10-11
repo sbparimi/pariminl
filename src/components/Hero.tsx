@@ -44,9 +44,9 @@ export default function Hero({ onPlay }: { onPlay: () => void }) {
   ];
 
   const floating = [
-    { text: '18+ years', sub: 'Quality Engineering', pos: 'left-[2%] top-[30%]', depth: 1 },
-    { text: `${achievements[0].title}`, sub: achievements[0].org, pos: 'right-[0%] top-[18%]', depth: -1 },
-    { text: 'Playwright · Python · TypeScript', sub: 'Primary stack', pos: 'right-[4%] bottom-[24%]', depth: 0.6 },
+    { text: '18+ years', sub: 'Engineering & QA Leadership', pos: 'left-[2%] top-[30%]', depth: 1 },
+    { text: '12 days → 3 days', sub: 'Release speed · Canon Europe', pos: 'right-[0%] top-[18%]', depth: -1 },
+    { text: 'Quality Strategy · AI · AIOps', sub: 'Target leadership focus', pos: 'right-[4%] bottom-[24%]', depth: 0.6 },
   ];
 
   return (
