@@ -23,7 +23,10 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
   const reduced = useReducedMotionPref();
   const [beat, setBeat] = useState(reduced ? 8 : 0);
   const score = useRef<HTMLAudioElement | null>(null);
+  const narration = useRef<HTMLAudioElement | null>(null);
   const audioStarted = useRef(false);
+  const beatRef = useRef(beat);
+  beatRef.current = beat;
   const story = [
     'Every journey has a beginning. Mine started in a small village in India, with a big ambition to build a future through learning.',
     'I completed my Electrical and Electronics Engineering degree. It taught me to think in systems, trace a problem to its source, and look for evidence, not assumptions.',
@@ -32,31 +35,32 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
   ];
 
   const startAudio = () => {
-    if (audioStarted.current) return;
-    audioStarted.current = true;
     const bed = score.current;
-    if (bed) { bed.volume = 0.18; void bed.play().catch(() => { audioStarted.current = false; }); }
-    if ('speechSynthesis' in window && beat >= 4 && beat < 8) speakStory(beat);
-  };
-
-  const speakStory = (currentBeat: number) => {
-    if (!('speechSynthesis' in window) || currentBeat < 4 || currentBeat > 7) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(story[currentBeat - 4]);
-    utterance.lang = 'en-GB';
-    utterance.rate = 0.94;
-    utterance.pitch = 0.92;
-    utterance.volume = 1;
-    window.speechSynthesis.speak(utterance);
+    const voice = narration.current;
+    if (bed && bed.paused) {
+      bed.volume = 0.18;
+      void bed.play().catch(() => {});
+    }
+    // Use a professionally generated, resonant voiceover rather than the browser's robotic TTS.
+    // Trigger play directly inside the visitor gesture as a fallback for autoplay-restricted browsers.
+    if (voice && voice.paused && beatRef.current >= 2 && beatRef.current < 8) {
+      void voice.play().then(() => { audioStarted.current = true; }).catch(() => {});
+    }
   };
 
   useEffect(() => {
     const bed = new Audio('/audio/score.wav');
     bed.loop = true;
     bed.volume = 0.18;
+    const voice = new Audio('https://www.aidocmaker.com/g0/audio?name=99ed67fd76e24caf834fa1d2807ad3cf');
+    voice.preload = 'auto';
+    voice.volume = 1;
     score.current = bed;
-    // Attempt sound immediately. Browsers that block autoplay retry on the first visitor gesture.
-    void bed.play().then(() => { audioStarted.current = true; }).catch(() => { audioStarted.current = false; });
+    narration.current = voice;
+
+    // Attempt both tracks immediately on every fresh visit. Browser autoplay policies
+    // may block audible media; the first pointer/keyboard gesture retries without a sound button.
+    void bed.play().catch(() => {});
     const resume = () => startAudio();
     window.addEventListener('pointerdown', resume);
     window.addEventListener('keydown', resume);
@@ -65,8 +69,10 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
       window.removeEventListener('keydown', resume);
       bed.pause();
       bed.currentTime = 0;
-      window.speechSynthesis?.cancel();
+      voice.pause();
+      voice.currentTime = 0;
       score.current = null;
+      narration.current = null;
     };
   // Audio should be initialized once for every fresh page visit.
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,14 +85,18 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
   }, [reduced]);
 
   useEffect(() => {
-    if (beat >= 4 && beat < 8 && audioStarted.current) speakStory(beat);
-  // The narration changes in sync with each story card.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // Start the human-sounding narration as soon as the main title appears.
+    if (beat === 2 && narration.current && narration.current.paused) {
+      void narration.current.play().then(() => { audioStarted.current = true; }).catch(() => {});
+    }
+    if (beat >= 8) {
+      narration.current?.pause();
+    }
   }, [beat]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' || e.key === 'Enter') onDone(e.key === 'Enter');
+      if (e.key === 'Escape' || e.key === 'Enter') { score.current?.pause(); narration.current?.pause(); onDone(e.key === 'Enter'); }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -220,7 +230,7 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
             <button
               type="button"
               data-cursor="play"
-              onClick={() => { score.current?.pause(); window.speechSynthesis?.cancel(); onDone(true); }}
+              onClick={() => { score.current?.pause(); narration.current?.pause(); onDone(true); }}
               tabIndex={beat >= 8 ? 0 : -1}
               className="group flex items-center gap-3 rounded-full bg-bone px-9 py-4 font-sans text-base font-bold tracking-wide text-ink shadow-[0_0_60px_rgba(229,19,43,0.45)] transition hover:bg-white"
             >
@@ -232,7 +242,7 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
 
       <button
         type="button"
-        onClick={() => { score.current?.pause(); window.speechSynthesis?.cancel(); onDone(false); }}
+        onClick={() => { score.current?.pause(); narration.current?.pause(); onDone(false); }}
         className="absolute right-4 top-[calc(7vh+12px)] z-40 rounded-full border border-white/20 px-4 py-2 font-sans text-[11px] font-semibold tracking-[0.2em] text-mist transition hover:border-white/60 hover:text-bone"
       >
         SKIP INTRO
