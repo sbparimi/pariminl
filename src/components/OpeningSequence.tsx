@@ -46,19 +46,29 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
     const bed = new Audio('/audio/score.wav');
     bed.loop = true;
     bed.volume = 0.18;
-    const voice = new Audio('https://www.aidocmaker.com/g0/audio?name=99ed67fd76e24caf834fa1d2807ad3cf');
+    const voice = new Audio('https://www.aidocmaker.com/g0/audio?name=328be7d0b3ae4edeaed3d9967d561433');
     voice.preload = 'auto';
     voice.volume = 1;
     score.current = bed;
     narration.current = voice;
+    voice.load();
+
+    // Start as soon as the title appears, including when the remote audio finishes loading later.
+    const tryNarration = () => {
+      if (beatRef.current >= 1 && beatRef.current < 8 && voice.paused) {
+        void voice.play().then(() => { audioStarted.current = true; }).catch(() => {});
+      }
+    };
+    voice.addEventListener('canplay', tryNarration);
 
     // Attempt both tracks immediately on every fresh visit. Browser autoplay policies
-    // may block audible media; the first pointer/keyboard gesture retries without a sound button.
+    // may block audible media; retry on the first visitor gesture.
     void bed.play().catch(() => {});
     const resume = () => startAudio();
     window.addEventListener('pointerdown', resume);
     window.addEventListener('keydown', resume);
     return () => {
+      voice.removeEventListener('canplay', tryNarration);
       window.removeEventListener('pointerdown', resume);
       window.removeEventListener('keydown', resume);
       bed.pause();
