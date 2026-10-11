@@ -1,8 +1,17 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { sectionMeta } from '../data/portfolio';
 
-const labels: Record<string, string> = { top: 'The Quality Series', ...Object.fromEntries(Object.entries(sectionMeta).map(([id, s]) => [id, s.card])), contact: 'Let’s connect' };
+const labels: Record<string, string> = { top: 'Test Engineering Leadership', ...Object.fromEntries(Object.entries(sectionMeta).map(([id, s]) => [id, s.card])), contact: 'Quality leadership opportunities' };
 const ids = Object.keys(labels);
+
+// Natural voiceovers generated specifically for the target role narrative.
+// Other chapters retain their existing locally hosted narration.
+const voiceoverUrls: Record<string, string> = {
+  top: 'https://www.aidocmaker.com/g0/audio?name=e09198abb76042c48c678848905aabfd',
+  about: 'https://www.aidocmaker.com/g0/audio?name=e09198abb76042c48c678848905aabfd',
+  journey: 'https://www.aidocmaker.com/g0/audio?name=dd735e4c7b9a41f88298d05d95a4e17e',
+  moments: 'https://www.aidocmaker.com/g0/audio?name=dd735e4c7b9a41f88298d05d95a4e',
+};
 
 export default function CinemaAudio({ active, visible }: { active: boolean; visible: boolean }) {
   const [enabled, setEnabled] = useState(false);
@@ -18,7 +27,7 @@ export default function CinemaAudio({ active, visible }: { active: boolean; visi
 
   const announce = useCallback((id: string) => {
     narration.current?.pause();
-    const clip = new Audio(`/audio/${id}.wav`);
+    const clip = new Audio(voiceoverUrls[id] ?? `/audio/${id}.wav`);
     narration.current = clip;
     last.current = id;
     const bed = score.current;
