@@ -971,11 +971,11 @@ export const introSlides: IntroSlide[] = [
     ]
   },
   {
-    "kicker": "Personal project",
-    "title": "Meet Jarvis.",
+    "kicker": "Engineering leadership",
+    "title": "Reliability by design.",
     "lines": [
-      "Voice-driven AI workspace",
-      "Voice-driven AI interactions and decision evidence"
+      "Quality strategy, operational observability and AIOps",
+      "Earlier risk signals, stronger release confidence and continuous improvement"
     ]
   }
 ];
