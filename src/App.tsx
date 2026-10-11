@@ -3,6 +3,7 @@ import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import { type Project, type SectionId } from './data/portfolio';
 import { SmoothScrollProvider, useSmoothScroll } from './hooks/smoothScroll';
 import CustomCursor from './components/CustomCursor';
+import CinemaAudio from './components/CinemaAudio';
 import OpeningSequence from './components/OpeningSequence';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -67,8 +68,9 @@ function Series() {
     <LayoutGroup>
       <div className="grain" aria-hidden />
       <CustomCursor />
+      <CinemaAudio active={stage === 'home'} visible={stage === 'home'} />
       <AnimatePresence>
-        {stage === 'opening' && <OpeningSequence key="opening" onDone={() => setStage('home')} />}
+        {stage === 'opening' && <OpeningSequence key="opening" onDone={(withSound = false) => { setStage('home'); if (withSound) window.dispatchEvent(new Event('portfolio-enable-audio')); }} />}
       </AnimatePresence>
       {stage === 'home' && (
         <motion.div
