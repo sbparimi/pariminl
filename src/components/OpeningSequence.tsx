@@ -51,7 +51,7 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
       <motion.div
         aria-hidden
         className="absolute inset-0"
-        style={{ background: 'radial-gradient(60% 50% at 50% 55%, rgba(229,19,43,0.22), transparent 70%)' }}
+        style={{ background: 'radial-gradient(60% 50% at 50% 55%, rgba(102,217,255,0.18), transparent 70%)' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: beat >= 2 ? [0, 0.9, 0.5, 1] : 0 }}
         transition={{ duration: 1.4 }}
