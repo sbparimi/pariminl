@@ -3,6 +3,12 @@ import { sectionMeta } from '../data/portfolio';
 
 const labels: Record<string, string> = { top: 'Test Engineering Leadership', ...Object.fromEntries(Object.entries(sectionMeta).map(([id, s]) => [id, s.card])), contact: 'Quality leadership opportunities' };
 const ids = Object.keys(labels);
+const fallbackNarration: Record<string, string> = {
+  top: "My journey began in a small village in India, with a big ambition to build a future through learning. After completing Electrical and Electronics Engineering, I moved into software testing and spent more than eighteen years growing through automation, quality engineering, release leadership and AI quality engineering. I help teams build reliable software, test AI systems with evidence, and make confident release decisions.",
+  about: "I am a quality engineering leader with more than eighteen years of experience across software testing, automation architecture, release governance and AI quality engineering. I build teams, strategies and reusable engineering systems that make quality measurable.",
+  journey: "My career has taken me from engineering foundations and software testing into automation leadership, global team collaboration, release quality and AI-enabled assurance. The constant has been finding evidence, reducing risk and helping teams deliver with confidence.",
+  moments: "The impact is practical: stronger automation coverage, fewer escaped defects, faster releases and better visibility into risk. I focus on outcomes that engineering and business teams can understand and trust.",
+};
 
 // Natural voiceovers generated specifically for the target role narrative.
 // Other chapters retain their existing locally hosted narration.
@@ -25,6 +31,23 @@ export default function CinemaAudio({ active, visible }: { active: boolean; visi
   const last = useRef('');
   const [speaking, setSpeaking] = useState(false);
 
+  const speakFallback = useCallback((id: string) => {
+    if (!('speechSynthesis' in window)) {
+      setStatus('Narration is unavailable in this browser. Check your audio settings and try again.');
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(fallbackNarration[id] ?? fallbackNarration.top);
+    utterance.lang = 'en-GB';
+    utterance.rate = 0.94;
+    utterance.pitch = 0.96;
+    utterance.volume = Math.max(0, Math.min(1, volume / 100));
+    utterance.onstart = () => { setSpeaking(true); setStatus('Using built-in voice narration.'); };
+    utterance.onend = () => setSpeaking(false);
+    utterance.onerror = () => { setSpeaking(false); setStatus('Voice narration could not start. Click Replay voice to retry.'); };
+    window.speechSynthesis.speak(utterance);
+  }, [volume]);
+
   const announce = useCallback((id: string) => {
     narration.current?.pause();
     const clip = new Audio(voiceoverUrls[id] ?? `/audio/${id}.wav`);
@@ -36,9 +59,9 @@ export default function CinemaAudio({ active, visible }: { active: boolean; visi
     const restore = () => { if (bed) bed.volume = (volume / 100) * 0.18; setSpeaking(false); };
     clip.onplaying = () => setSpeaking(true);
     clip.onended = restore;
-    clip.onerror = () => { restore(); last.current = ''; setStatus('Narration could not load. Try Replay voice.'); };
-    clip.play().catch(() => { restore(); last.current = ''; setStatus('Chrome blocked audio. Click Replay voice to start it.'); });
-  }, []);
+    clip.onerror = () => { restore(); last.current = id; speakFallback(id); };
+    clip.play().catch(() => { restore(); last.current = id; speakFallback(id); });
+  }, [speakFallback]);
 
   const enable = useCallback(() => {
     setStatus('');
@@ -52,7 +75,7 @@ export default function CinemaAudio({ active, visible }: { active: boolean; visi
     bed.loop = true;
     bed.volume = 0.18;
     score.current = bed;
-    return () => { bed.pause(); narration.current?.pause(); };
+    return () => { bed.pause(); narration.current?.pause(); window.speechSynthesis?.cancel(); };
   }, []);
 
   useEffect(() => {
@@ -86,17 +109,17 @@ export default function CinemaAudio({ active, visible }: { active: boolean; visi
   }, [visible]);
 
   useEffect(() => {
-    const pause = () => { score.current?.pause(); narration.current?.pause(); };
+    const pause = () => { score.current?.pause(); narration.current?.pause(); window.speechSynthesis?.pause(); };
     const visibility = () => {
       if (document.hidden) pause();
       else if (enabled && active) {
         if (music) score.current?.play().catch(() => setStatus('Tap Sound to resume audio.'));
-        if (voice && narration.current && !narration.current.ended) narration.current.play().catch(() => setStatus('Click Replay voice to resume narration.'));
+        if (voice && narration.current && !narration.current.ended) narration.current.play().catch(() => speakFallback(topic)); else if (voice) window.speechSynthesis?.resume();
       }
     };
     document.addEventListener('visibilitychange', visibility);
     return () => document.removeEventListener('visibilitychange', visibility);
-  }, [enabled, active, music, voice]);
+  }, [enabled, active, music, voice, speakFallback, topic]);
 
   useEffect(() => {
     const bed = score.current;
