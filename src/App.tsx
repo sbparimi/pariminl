@@ -7,6 +7,7 @@ import CinemaAudio from './components/CinemaAudio';
 import OpeningSequence from './components/OpeningSequence';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import PostNLSpotlight from './components/PostNLSpotlight';
 import ContinueWatching from './components/ContinueWatching';
 import Scene from './components/Scene';
 import About from './components/About';
@@ -81,6 +82,7 @@ function Series() {
           <Navbar order={order} />
           <main>
             <Hero onPlay={() => setPlaying(true)} />
+            <PostNLSpotlight />
             <ContinueWatching order={order} />
             {order.map((id) => (
               <Scene key={id} id={id} className={id === 'originals' ? '!py-0 sm:!py-0' : ''}>
