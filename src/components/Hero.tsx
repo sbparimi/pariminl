@@ -171,6 +171,20 @@ export default function Hero({ onPlay }: { onPlay: () => void }) {
                 <span className="text-xl leading-none">＋</span> My Work
               </button>
           </Magnetic>
+          <a
+            href={`mailto:${profile.email}?subject=${encodeURIComponent('Discuss AI and data evaluation')}`}
+            className="flex min-h-12 items-center justify-center rounded-md border border-white/25 px-5 py-3 text-sm font-semibold text-bone transition hover:border-bone hover:bg-white/10"
+          >
+            Let’s talk
+          </a>
+          <a
+            href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Coffee with Suresh Parimi — AI Quality')}&details=${encodeURIComponent('Introductory conversation about AI evaluation, data quality and engineering leadership. Please adjust the time and invite reachparimi@gmail.com.')}&add=${encodeURIComponent(profile.email)}`}
+            target="_blank"
+            rel="noreferrer"
+            className="flex min-h-12 items-center justify-center rounded-md border border-white/25 px-5 py-3 text-sm font-semibold text-bone transition hover:border-bone hover:bg-white/10"
+          >
+            Coffee with Suresh ↗
+          </a>
           <button
             type="button"
             onClick={() => scrollTo('#about')}
