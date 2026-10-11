@@ -39,6 +39,9 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
   return (
     <motion.div
       className="fixed inset-0 z-[120] overflow-hidden bg-black"
+      onWheel={(event) => { if (Math.abs(event.deltaY) > 8) onDone(false); }}
+      onTouchStart={(event) => { (event.currentTarget as HTMLDivElement).dataset.touchY = String(event.touches[0]?.clientY ?? 0); }}
+      onTouchEnd={(event) => { const start = Number((event.currentTarget as HTMLDivElement).dataset.touchY ?? 0); const end = event.changedTouches[0]?.clientY ?? start; if (start - end > 36) onDone(false); }}
       exit={{ opacity: 0, scale: 1.04, filter: 'blur(12px)' }}
       transition={{ duration: 0.9, ease: EASE }}
       role="dialog"
@@ -179,7 +182,7 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
         onClick={() => onDone(false)}
         className="absolute right-4 top-[calc(7vh+12px)] z-40 rounded-full border border-white/20 px-4 py-2 font-sans text-[11px] font-semibold tracking-[0.2em] text-mist transition hover:border-white/60 hover:text-bone"
       >
-        SKIP INTRO · VIEW PORTFOLIO
+        SKIP INTRO · SCROLL TO EXPLORE
       </button>
     </motion.div>
   );
