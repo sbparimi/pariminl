@@ -141,8 +141,14 @@ export default function Hero({ onPlay }: { onPlay: () => void }) {
           {profile.tagline.join(' • ')}
         </motion.p>
 
-        <motion.p variants={item} className="mt-4 max-w-xl text-[15px] leading-relaxed text-bone/80 sm:text-base">
-          {profile.intro}
+        <motion.div variants={item} className="mt-4 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.28em] text-mist">
+          <span className="rounded-sm bg-crimson px-2 py-1 text-white">Featured</span>
+          <span>AI quality engineering</span>
+          <span className="text-smoke">•</span>
+          <span>Real-world impact</span>
+        </motion.div>
+        <motion.p variants={item} className="mt-3 max-w-xl text-[15px] leading-relaxed text-bone/80 sm:text-base">
+          Can you trust an AI agent’s answer, tools and decisions? Explore how I evaluate AI systems, strengthen automation and turn quality signals into release confidence.
         </motion.p>
 
         <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-3">
@@ -175,6 +181,27 @@ export default function Hero({ onPlay }: { onPlay: () => void }) {
           </button>
         </motion.div>
       </motion.div>
+
+      {/* recruiter / decision-maker conversion panel */}
+      <motion.aside
+        className="absolute bottom-8 right-6 z-[6] hidden w-[min(30vw,390px)] rounded-2xl border border-white/15 bg-black/65 p-5 text-left shadow-[0_25px_100px_rgba(0,0,0,0.55)] backdrop-blur-xl xl:block"
+        initial={{ opacity: 0, x: 24, y: 12 }}
+        animate={{ opacity: 1, x: 0, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.9, ease: EASE }}
+      >
+        <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-crimson-2">Let’s solve something real</p>
+        <h2 className="mt-2 font-display text-2xl leading-tight text-bone">Struggling to evaluate AI or trust your data?</h2>
+        <p className="mt-2 text-sm leading-relaxed text-mist">Let’s compare approaches to AI evaluation, agent quality, observability and release confidence.</p>
+        <div className="mt-4 grid grid-cols-1 gap-2">
+          <a href={`mailto:${profile.email}?subject=${encodeURIComponent('Discuss AI and data evaluation')}&body=${encodeURIComponent('Hi Suresh,\\n\\nI would like to discuss AI/data evaluation and quality engineering. Please let me know a convenient time.\\n\\nThank you')}`} className="flex min-h-11 items-center justify-center gap-2 rounded-lg bg-bone px-4 py-3 text-sm font-bold text-ink transition hover:bg-white">
+            Discuss AI evaluation <span aria-hidden>↗</span>
+          </a>
+          <a href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Coffee with Suresh Parimi — AI Quality')}&details=${encodeURIComponent('A short introductory conversation about AI evaluation, data quality and engineering leadership. Please adjust the time and invite reachparimi@gmail.com.')}&add=${encodeURIComponent(profile.email)}`} target="_blank" rel="noreferrer" className="flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/20 px-4 py-3 text-sm font-semibold text-bone transition hover:border-white/50 hover:bg-white/10">
+            <span aria-hidden>◷</span> Arrange a coffee / meeting <span aria-hidden>↗</span>
+          </a>
+        </div>
+        <p className="mt-3 text-[10px] leading-relaxed text-smoke">Calendar opens a pre-filled invitation. Choose a time and send the invite; no calendar access is required.</p>
+      </motion.aside>
 
       <motion.div aria-hidden className="pointer-events-none absolute inset-0 z-[5] bg-ink" style={{ opacity: blackout }} />
     </section>
