@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { profile } from '../data/portfolio';
 import { useReducedMotionPref } from '../hooks/useMedia';
@@ -13,21 +13,76 @@ const TIMELINE = [
   { at: 1700, beat: 2 }, // name
   { at: 2500, beat: 3 }, // THE SERIES
   { at: 3300, beat: 4 }, // portrait and origin story
-  { at: 4300, beat: 5 }, // engineering foundation
-  { at: 5600, beat: 6 }, // first software testing role
-  { at: 6900, beat: 7 }, // career evolution
-  { at: 8200, beat: 8 }, // role and play button
+  { at: 7800, beat: 5 }, // engineering foundation
+  { at: 12800, beat: 6 }, // first software testing role
+  { at: 18300, beat: 7 }, // career evolution
+  { at: 24500, beat: 8 }, // role and play button
 ];
 
 export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) => void }) {
   const reduced = useReducedMotionPref();
   const [beat, setBeat] = useState(reduced ? 8 : 0);
+  const score = useRef<HTMLAudioElement | null>(null);
+  const audioStarted = useRef(false);
+  const story = [
+    'Every journey has a beginning. Mine started in a small village in India, with a big ambition to build a future through learning.',
+    'I completed my Electrical and Electronics Engineering degree. It taught me to think in systems, trace a problem to its source, and look for evidence, not assumptions.',
+    'My first turn into software was software testing. What began as a way to understand whether technology worked became a craft: finding what could fail before it mattered to someone.',
+    'Over eighteen years, that craft grew into automation architecture, release leadership, global team mentoring and AI quality engineering, helping teams ship with stronger evidence and confidence.',
+  ];
+
+  const startAudio = () => {
+    if (audioStarted.current) return;
+    audioStarted.current = true;
+    const bed = score.current;
+    if (bed) { bed.volume = 0.18; void bed.play().catch(() => { audioStarted.current = false; }); }
+    if ('speechSynthesis' in window && beat >= 4 && beat < 8) speakStory(beat);
+  };
+
+  const speakStory = (currentBeat: number) => {
+    if (!('speechSynthesis' in window) || currentBeat < 4 || currentBeat > 7) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(story[currentBeat - 4]);
+    utterance.lang = 'en-GB';
+    utterance.rate = 0.94;
+    utterance.pitch = 0.92;
+    utterance.volume = 1;
+    window.speechSynthesis.speak(utterance);
+  };
+
+  useEffect(() => {
+    const bed = new Audio('/audio/score.wav');
+    bed.loop = true;
+    bed.volume = 0.18;
+    score.current = bed;
+    // Attempt sound immediately. Browsers that block autoplay retry on the first visitor gesture.
+    void bed.play().then(() => { audioStarted.current = true; }).catch(() => { audioStarted.current = false; });
+    const resume = () => startAudio();
+    window.addEventListener('pointerdown', resume);
+    window.addEventListener('keydown', resume);
+    return () => {
+      window.removeEventListener('pointerdown', resume);
+      window.removeEventListener('keydown', resume);
+      bed.pause();
+      bed.currentTime = 0;
+      window.speechSynthesis?.cancel();
+      score.current = null;
+    };
+  // Audio should be initialized once for every fresh page visit.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (reduced) return;
     const timers = TIMELINE.map(({ at, beat }) => window.setTimeout(() => setBeat(beat), at));
     return () => timers.forEach(clearTimeout);
   }, [reduced]);
+
+  useEffect(() => {
+    if (beat >= 4 && beat < 8 && audioStarted.current) speakStory(beat);
+  // The narration changes in sync with each story card.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [beat]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -165,11 +220,11 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
             <button
               type="button"
               data-cursor="play"
-              onClick={() => onDone(true)}
+              onClick={() => { score.current?.pause(); window.speechSynthesis?.cancel(); onDone(true); }}
               tabIndex={beat >= 8 ? 0 : -1}
               className="group flex items-center gap-3 rounded-full bg-bone px-9 py-4 font-sans text-base font-bold tracking-wide text-ink shadow-[0_0_60px_rgba(229,19,43,0.45)] transition hover:bg-white"
             >
-              <span className="text-lg transition-transform group-hover:scale-125">▶</span> PLAY WITH SOUND
+              <span className="text-lg transition-transform group-hover:scale-125">▶</span> CONTINUE WITH SOUND
             </button>
           </Magnetic>
         </motion.div>
@@ -177,7 +232,7 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
 
       <button
         type="button"
-        onClick={() => onDone(false)}
+        onClick={() => { score.current?.pause(); window.speechSynthesis?.cancel(); onDone(false); }}
         className="absolute right-4 top-[calc(7vh+12px)] z-40 rounded-full border border-white/20 px-4 py-2 font-sans text-[11px] font-semibold tracking-[0.2em] text-mist transition hover:border-white/60 hover:text-bone"
       >
         SKIP INTRO
