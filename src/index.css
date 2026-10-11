@@ -1,5 +1,6 @@
 @import 'tailwindcss' source(none);
-@source './components/BusinessCard.tsx';
+@source '../index.html';
+@source './**/*.{ts,tsx}';
 
 @theme {
   --color-ink: #07070a;
