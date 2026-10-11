@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "prebuild": "npm run check:site",
+    "build": "npm run check:evaluation && tsc -b && vite build",
     "preview": "vite preview",
     "check:evaluation": "node scripts/check-evaluation.mjs",
+    "check:site": "node scripts/check-site.mjs",
     "images": "node scripts/build-images.mjs"
   },
   "dependencies": {

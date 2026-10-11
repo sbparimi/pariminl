@@ -352,3 +352,41 @@ html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 }
 .p-answer-input { display: block; width: 100%; resize: vertical; min-height: 86px; max-height: 300px; padding: 12px 14px; margin: 9px 0 16px; border: 1px solid #ffffff20; border-radius: 4px; background: #101014; color: #e4dbe2; font: 11px/1.8 ui-monospace, SFMono-Regular, monospace; }
 .p-answer-input:focus-visible { outline: 2px solid var(--p-accent); outline-offset: 3px; }
+
+
+/* Readability and touch-target refinements: keep small editorial labels legible. */
+.p-site .p-eyebrow,
+.p-site .p-label { font-size: 10px; }
+.p-site .p-mono { font-size: 10px; }
+.p-site .p-project-meta { font-size: 10px; }
+.p-site .p-project-copy > p { font-size: 14px; min-height: 0; line-height: 1.8; }
+.p-site .p-section-heading > p,
+.p-site .p-career-summary { font-size: 14px; line-height: 1.8; }
+.p-site .p-project-stack > span { font-size: 10px; }
+.p-site .p-impact-strip div > span:not(.p-label) { font-size: 12px; line-height: 1.6; }
+.p-site .p-impact-strip p { font-size: 10px; }
+.p-site .p-hero-meta,
+.p-site .p-hero-meta > span:last-child { font-size: 10px; letter-spacing: .04em; }
+.p-site .p-hero-footnote { font-size: 11px; line-height: 1.8; }
+.p-site .p-hero-actions .p-text-link { font-size: 12px; }
+.p-site .p-filters button { font-size: 11px; }
+.p-site .p-filter-row > span { font-size: 10px; }
+.p-site .p-project-art-label { font-size: 10px; }
+.p-site .p-lab-top > span:first-child { font-size: 10px; }
+.p-site .p-lab-note { font-size: 12px; line-height: 1.8; }
+.p-case-dialog section h3 { font-size: 16px; }
+.p-case-dialog section p,
+.p-case-dialog section li { font-size: 14px; line-height: 1.8; }
+.p-site .p-footer > span { font-size: 10px; }
+.p-site .p-footer > div a { font-size: 11px; }
+
+@media (max-width: 760px) {
+  .p-site .p-hero-meta { font-size: 10px; }
+  .p-site .p-hero-meta > span:last-child { font-size: 10px; }
+  .p-site .p-project-art-label { font-size: 9px; }
+  .p-site .p-impact-strip div > span:not(.p-label) { font-size: 10px; }
+  .p-site .p-impact-strip p { font-size: 9px; }
+  .p-site .p-lab-top > span:last-child { font-size: 9px; }
+  .p-site .p-section-heading > p,
+  .p-site .p-career-summary { font-size: 14px; }
+}
