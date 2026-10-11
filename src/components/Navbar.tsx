@@ -47,12 +47,12 @@ export default function Navbar({ order }: { order: SectionId[] }) {
       transition={{ duration: 0.45, ease: EASE }}
     >
       <div
-        className={`gutter flex h-16 items-center justify-between gap-6 transition-[background,backdrop-filter] duration-500 md:h-[72px] ${
+        className={`gutter flex h-16 items-center justify-between gap-2 transition-[background,backdrop-filter] duration-500 md:h-[72px] sm:gap-6 ${
           solid || mobileNav ? 'bg-ink/80 backdrop-blur-xl' : 'bg-gradient-to-b from-black/80 to-transparent'
         }`}
       >
         <div className="flex items-center gap-8 lg:gap-10">
-          <button type="button" onClick={() => go('top')} className="text-[22px]" aria-label="Back to top">
+          <button type="button" onClick={() => go('top')} className="text-[16px] sm:text-[22px]" aria-label="Back to top">
             <SeriesMark />
           </button>
           <nav className="hidden items-center gap-6 lg:flex" aria-label="Sections">
@@ -63,11 +63,11 @@ export default function Navbar({ order }: { order: SectionId[] }) {
           </nav>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="mr-[156px] flex items-center gap-3">
           <button
             type="button"
             onClick={() => go('contact')}
-            className="hidden rounded-full border border-white/15 px-4 py-1.5 text-xs font-semibold tracking-[0.14em] text-bone transition hover:border-crimson-2 hover:text-crimson-2 sm:block"
+            className="hidden rounded-full border border-white/15 px-4 py-1.5 text-xs font-semibold tracking-[0.14em] text-bone transition hover:border-crimson-2 hover:text-crimson-2 xl:block"
           >
             LET&apos;S BUILD
           </button>
