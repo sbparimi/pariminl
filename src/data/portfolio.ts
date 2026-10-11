@@ -636,7 +636,7 @@ export const seasons: Season[] = [
       {
         "code": "S01 E01",
         "title": "QA Lead & Consultant",
-        "description": "Quality engineering across healthcare IT, financial services, telecom, payments and enterprise systems.",
+        "description": "Across healthcare IT, financial services, telecom and enterprise platforms, I built a broad foundation in how software quality affects real operations. I learned to connect business workflows with test evidence—not just verify screens. **Business impact:** surfaced risk across varied customer and operational journeys before release. **Engineering impact:** gave delivery teams a repeatable quality mindset spanning domains, integrations and release cycles.",
         "tags": [
           "Automation",
           "Evaluation"
@@ -660,7 +660,7 @@ export const seasons: Season[] = [
       {
         "code": "S02 E01",
         "title": "Functional & Automation Test Manager",
-        "description": "Owned ERP and supply-chain QA for 500+ internal users. Built Java, Selenium and REST Assured automation covering 300+ test cases.",
+        "description": "I took ownership of ERP and supply-chain quality supporting 500+ internal users, then built Java, Selenium and REST Assured automation covering 300+ test cases. **Business impact:** improved confidence in workflows that employees depended on to keep operations moving. **Engineering impact:** shifted recurring checks from manual repetition toward reusable automated regression coverage.",
         "tags": [
           "Quality Engineering",
           "Leadership"
@@ -684,7 +684,7 @@ export const seasons: Season[] = [
       {
         "code": "S03 E01",
         "title": "Test Lead",
-        "description": "Delivered C# and Selenium frameworks for web and API testing across Agile release cycles.",
+        "description": "I brought C# and Selenium automation into web and API testing across Agile release cycles. The goal was to make quality part of delivery rather than a late-stage checkpoint. **Business impact:** helped teams validate changes across connected user and service journeys. **Engineering impact:** established reusable checks that could be repeated as the product evolved.",
         "tags": [
           "Automation",
           "Evaluation"
@@ -708,7 +708,7 @@ export const seasons: Season[] = [
       {
         "code": "S04 E01",
         "title": "Engineering Test Manager",
-        "description": "Automated ITGC and Segregation of Duties validation, eliminating 60% of manual checks. Integrated API and UI automation into Jenkins and GitHub Actions. Led risk-based validation of regulated enterprise workflows.",
+        "description": "In regulated enterprise workflows, I automated ITGC and Segregation of Duties validation, eliminating 60% of manual checks, and connected API/UI automation to Jenkins and GitHub Actions. **Business impact:** reduced manual compliance effort while strengthening consistency of control validation. **Engineering impact:** embedded repeatable risk-based checks into delivery pipelines so teams could detect issues earlier and produce clearer evidence.",
         "tags": [
           "Quality Engineering",
           "Leadership"
@@ -732,7 +732,7 @@ export const seasons: Season[] = [
       {
         "code": "S05 E01",
         "title": "Automation Test Engineer — Healthcare Workflows",
-        "description": "Built patient and clinician workflow automation across web and Salesforce healthcare processes. Developed reusable Playwright and TypeScript components and integrated them into GitLab CI/CD.",
+        "description": "I automated patient and clinician journeys across web and Salesforce healthcare processes, creating reusable Playwright and TypeScript components and integrating them into GitLab CI/CD. **Business impact:** strengthened validation of workflows used in healthcare delivery. **Engineering impact:** gave engineers shared automation building blocks and a repeatable way to validate changes through the pipeline.",
         "tags": [
           "Automation",
           "Evaluation"
@@ -756,7 +756,7 @@ export const seasons: Season[] = [
       {
         "code": "S06 E01",
         "title": "Automation Test Manager",
-        "description": "Standardised Playwright, Cypress and Appium across web and mobile. Used BrowserStack AI clustering to reduce defect triage time by 40%. Led a 10-person distributed QA organisation.",
+        "description": "I standardised Playwright, Cypress and Appium across web and mobile, applied BrowserStack AI clustering to reduce defect-triage time by 40%, and led a distributed 10-person QA organisation. **Business impact:** shortened the time needed to understand test failures and focus on meaningful defects. **Engineering impact:** created more consistent tooling and triage practices while aligning a distributed team around shared quality goals.",
         "tags": [
           "Quality Engineering",
           "Leadership"
@@ -780,7 +780,7 @@ export const seasons: Season[] = [
       {
         "code": "S07 E01",
         "title": "Test / Release Manager · Automation Architect",
-        "description": "Built Playwright automation across Salesforce, ERP, BI, CPQ and Contract Management. Reduced regression cycles from 12 days to 3; owned Go/No-Go, cutover and rollback readiness. Engineered MCP-based test tooling and mentored 6–8 engineers.",
+        "description": "At Canon Europe, I automated business-critical Salesforce, ERP, BI, CPQ and Contract Management journeys with Playwright, reducing regression cycles from 12 days to 3. I also owned Go/No-Go, cutover and rollback readiness, engineered MCP-based test tooling, and mentored 6–8 engineers. **Business impact:** made release decisions faster and better informed, with a 75% shorter regression window. **Engineering impact:** enabled quicker feedback, repeatable cross-platform validation and clearer release ownership.",
         "tags": [
           "Quality Engineering",
           "Leadership"
@@ -804,7 +804,7 @@ export const seasons: Season[] = [
       {
         "code": "S08 E01",
         "title": "Automation & AI Evaluation Lead",
-        "description": "Defined AI quality strategy for a production multi-agent conversational AI platform spanning RAG, MCP tool-calling and Salesforce Agentforce. Designed evaluation metrics for faithfulness, agent routing, tool-call correctness and end-to-end response quality. Combined deterministic checks, LLM-as-a-Judge and Human-in-the-Loop validation.",
+        "description": "At PostNL, I defined quality strategy for a production multi-agent conversational AI platform spanning RAG, MCP tool-calling and Salesforce Agentforce. I designed evaluations for faithfulness, agent routing, tool-call correctness and end-to-end response quality, combining deterministic checks, LLM-as-a-Judge and Human-in-the-Loop validation. **Business impact:** turns AI quality from a subjective impression into evidence about whether responses and actions are dependable. **Engineering impact:** gives teams measurable signals across answer quality, routing and tool execution, with human review where automated evaluation alone is insufficient.",
         "tags": [
           "Automation",
           "Evaluation"
