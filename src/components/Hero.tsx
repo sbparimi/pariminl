@@ -62,8 +62,8 @@ export default function Hero({ onPlay }: { onPlay: () => void }) {
     >
       {/* atmosphere */}
       <motion.div aria-hidden className="absolute inset-0" style={{ x: glowX }}>
-        <div className="absolute right-[-10%] top-[-10%] h-[90vh] w-[80vw] rounded-full bg-[radial-gradient(closest-side,rgba(229,19,43,0.38),rgba(229,19,43,0.08)_55%,transparent)] blur-2xl lg:right-[-4%] lg:w-[60vw]" />
-        <div className="absolute bottom-[-20%] left-[-10%] h-[70vh] w-[60vw] rounded-full bg-[radial-gradient(closest-side,rgba(90,20,120,0.25),transparent)] blur-2xl" />
+        <div className="absolute right-[-10%] top-[-10%] h-[90vh] w-[80vw] rounded-full bg-[radial-gradient(closest-side,rgba(102,217,255,0.24),rgba(102,217,255,0.05)_55%,transparent)] blur-2xl lg:right-[-4%] lg:w-[60vw]" />
+        <div className="absolute bottom-[-20%] left-[-10%] h-[70vh] w-[60vw] rounded-full bg-[radial-gradient(closest-side,rgba(212,180,119,0.10),transparent)] blur-2xl" />
       </motion.div>
       <Particles className="z-[1]" />
       <div aria-hidden className="absolute inset-0 z-[1] overflow-hidden">
@@ -85,7 +85,7 @@ export default function Hero({ onPlay }: { onPlay: () => void }) {
           transition={{ duration: 1.6, ease: EASE, delay: 0.1 }}
         >
           {/* rim light ring */}
-          <div aria-hidden className="absolute bottom-[8%] left-1/2 h-[78%] w-[78%] -translate-x-1/2 rounded-full border border-crimson-2/20 shadow-[0_0_120px_rgba(229,19,43,0.35),inset_0_0_80px_rgba(229,19,43,0.18)]" />
+          <div aria-hidden className="absolute bottom-[8%] left-1/2 h-[78%] w-[78%] -translate-x-1/2 rounded-full border border-crimson-2/20 shadow-[0_0_120px_rgba(102,217,255,0.22),inset_0_0_80px_rgba(102,217,255,0.10)]" />
           <img
             src={profile.portrait.src}
             srcSet={profile.portrait.srcSet}
@@ -95,7 +95,7 @@ export default function Hero({ onPlay }: { onPlay: () => void }) {
             className="absolute bottom-0 left-1/2 h-full w-auto max-w-none -translate-x-1/2 object-contain object-bottom drop-shadow-[0_30px_60px_rgba(0,0,0,0.6)] [mask-image:linear-gradient(to_bottom,black_62%,transparent_97%)]"
           />
           {/* crimson rim light on the image edge */}
-          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_80%_30%,rgba(255,61,90,0.16),transparent_70%)] mix-blend-screen" />
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_80%_30%,rgba(180,239,255,0.12),transparent_70%)] mix-blend-screen" />
 
           {/* floating UI chips */}
           {floating.map((f, i) => (
