@@ -9,79 +9,19 @@ import { EASE, Magnetic } from './fx';
  * black → studio card → SURESH → THE SERIES → portrait reveal → role → ▶ PLAY
  */
 const TIMELINE = [
-  { at: 300, beat: 1 }, // studio card
-  { at: 1700, beat: 2 }, // name
-  { at: 2500, beat: 3 }, // THE SERIES
-  { at: 3300, beat: 4 }, // portrait and origin story
-  { at: 10500, beat: 5 }, // engineering foundation
-  { at: 17500, beat: 6 }, // first software testing role
-  { at: 25000, beat: 7 }, // career evolution
-  { at: 44000, beat: 8 }, // role and play button
+  { at: 250, beat: 1 }, // studio card
+  { at: 1000, beat: 2 }, // name
+  { at: 1800, beat: 3 }, // THE SERIES
+  { at: 2600, beat: 4 }, // portrait and origin story
+  { at: 5600, beat: 5 }, // engineering foundation
+  { at: 8200, beat: 6 }, // first software testing role
+  { at: 10800, beat: 7 }, // career evolution
+  { at: 13800, beat: 8 }, // role and enter button
 ];
 
 export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) => void }) {
   const reduced = useReducedMotionPref();
   const [beat, setBeat] = useState(reduced ? 8 : 0);
-  const score = useRef<HTMLAudioElement | null>(null);
-  const narration = useRef<HTMLAudioElement | null>(null);
-  const audioStarted = useRef(false);
-  const beatRef = useRef(beat);
-  beatRef.current = beat;
-
-  const startAudio = () => {
-    const bed = score.current;
-    const voice = narration.current;
-    if (bed && bed.paused) {
-      bed.volume = 0.18;
-      void bed.play().catch(() => {});
-    }
-    // Use a professionally generated, resonant voiceover rather than the browser's robotic TTS.
-    // Trigger play directly inside the visitor gesture as a fallback for autoplay-restricted browsers.
-    if (voice && voice.paused && beatRef.current >= 1 && beatRef.current < 8) {
-      void voice.play().then(() => { audioStarted.current = true; }).catch(() => {});
-    }
-  };
-
-  useEffect(() => {
-    const bed = new Audio('/audio/score.wav');
-    bed.loop = true;
-    bed.volume = 0.18;
-    const voice = new Audio('https://www.aidocmaker.com/g0/audio?name=328be7d0b3ae4edeaed3d9967d561433');
-    voice.preload = 'auto';
-    voice.volume = 1;
-    score.current = bed;
-    narration.current = voice;
-    voice.load();
-
-    // Start as soon as the title appears, including when the remote audio finishes loading later.
-    const tryNarration = () => {
-      if (beatRef.current >= 1 && beatRef.current < 8 && voice.paused) {
-        void voice.play().then(() => { audioStarted.current = true; }).catch(() => {});
-      }
-    };
-    voice.addEventListener('canplay', tryNarration);
-
-    // Attempt both tracks immediately on every fresh visit. Browser autoplay policies
-    // may block audible media; retry on the first visitor gesture.
-    void bed.play().catch(() => {});
-    const resume = () => startAudio();
-    window.addEventListener('pointerdown', resume);
-    window.addEventListener('keydown', resume);
-    return () => {
-      voice.removeEventListener('canplay', tryNarration);
-      window.removeEventListener('pointerdown', resume);
-      window.removeEventListener('keydown', resume);
-      bed.pause();
-      bed.currentTime = 0;
-      voice.pause();
-      voice.currentTime = 0;
-      score.current = null;
-      narration.current = null;
-    };
-  // Audio should be initialized once for every fresh page visit.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   useEffect(() => {
     if (reduced) return;
     const timers = TIMELINE.map(({ at, beat }) => window.setTimeout(() => setBeat(beat), at));
@@ -89,15 +29,8 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
   }, [reduced]);
 
   useEffect(() => {
-    // Start narration exactly when the opening studio label “A Parimi Original” appears.
-    if (beat === 1 && narration.current && narration.current.paused) {
-      void narration.current.play().then(() => { audioStarted.current = true; }).catch(() => {});
-    }
-  }, [beat]);
-
-  useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' || e.key === 'Enter') { score.current?.pause(); narration.current?.pause(); onDone(e.key === 'Enter'); }
+      if (e.key === 'Escape') onDone(false);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -231,11 +164,11 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
             <button
               type="button"
               data-cursor="play"
-              onClick={() => { score.current?.pause(); narration.current?.pause(); onDone(true); }}
+              onClick={() => onDone(true)}
               tabIndex={beat >= 8 ? 0 : -1}
               className="group flex items-center gap-3 rounded-full bg-bone px-9 py-4 font-sans text-base font-bold tracking-wide text-ink shadow-[0_0_60px_rgba(229,19,43,0.45)] transition hover:bg-white"
             >
-              <span className="text-lg transition-transform group-hover:scale-125">▶</span> CONTINUE WITH SOUND
+              <span className="text-lg transition-transform group-hover:scale-125">▶</span> ENTER PORTFOLIO
             </button>
           </Magnetic>
         </motion.div>
@@ -243,10 +176,10 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
 
       <button
         type="button"
-        onClick={() => { score.current?.pause(); narration.current?.pause(); onDone(false); }}
+        onClick={() => onDone(false)}
         className="absolute right-4 top-[calc(7vh+12px)] z-40 rounded-full border border-white/20 px-4 py-2 font-sans text-[11px] font-semibold tracking-[0.2em] text-mist transition hover:border-white/60 hover:text-bone"
       >
-        SKIP INTRO
+        SKIP INTRO · VIEW PORTFOLIO
       </button>
     </motion.div>
   );
