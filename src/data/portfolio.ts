@@ -264,7 +264,7 @@ export const projects: Project[] = [
     "title": "Jarvis — Personal AI Workspace",
     "year": "2026",
     "genre": "PERSONAL PROJECT • AI",
-    "logline": "A voice-driven assistant and job-search workspace, developed in this local project.",
+    "logline": "A voice-driven AI workspace exploring model routing, activity traces and evidence-backed interactions.",
     "stack": [
       "Python",
       "Three.js",
@@ -274,8 +274,8 @@ export const projects: Project[] = [
     ],
     "build": [
       "Integrated voice interaction with routed model providers.",
-      "Built current-run website activity traces and job evidence views.",
-      "Added fresh-search isolation and a strict eight-hour posting window."
+      "Built visible activity traces and evidence views for AI-assisted workflows.",
+      "Designed freshness controls and evidence checks to support reliable decisions."
     ],
     "features": [
       "Voice commands",
@@ -975,7 +975,7 @@ export const introSlides: IntroSlide[] = [
     "title": "Meet Jarvis.",
     "lines": [
       "Voice-driven AI workspace",
-      "Fresh job searches and visible decision evidence"
+      "Voice-driven AI interactions and decision evidence"
     ]
   }
 ];
