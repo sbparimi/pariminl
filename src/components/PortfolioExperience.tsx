@@ -51,7 +51,7 @@ export default function PortfolioExperience() {
             <div className="p-hero-copy">
               <p className="p-eyebrow">SURESH PARIMI / THE QUALITY SERIES</p>
               <h1 id="hero-title">AI systems.<br />Human trust.<br /><em>Engineered.</em></h1>
-              <p className="p-hero-intro">I connect AI evaluation, automation architecture and release leadership to make complex systems ready for the real world.</p>
+              <p className="p-hero-intro">AI Quality Engineering leader focused on agentic AI assurance, test engineering management, automation architecture and release governance—turning complex systems into measurable, release-ready outcomes.</p>
               <div className="p-hero-actions"><a href="#work" className="p-button p-button-primary">Explore my work <span aria-hidden>↗</span></a><a href="#lab" className="p-text-link">Try the AI quality lab <span aria-hidden>→</span></a></div>
               <p className="p-hero-footnote">18+ years in quality engineering <span> / </span> Currently at PostNL</p>
             </div>

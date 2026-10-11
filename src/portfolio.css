@@ -75,7 +75,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 .p-impact-intro > span:last-child { font-size: 13px !important; color: #ddd9d6 !important; }
 .p-label { font: 9px/1.6 ui-monospace, SFMono-Regular, monospace; letter-spacing: .13em; color: var(--p-muted, #aaa9b4); margin: 0; }
 .p-mono { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 9px; letter-spacing: .03em; }
-.p-section { padding-top: 108px; padding-bottom: 18px; scroll-margin-top: -80px; }
+.p-section { padding-top: 108px; padding-bottom: 18px; scroll-margin-top: 0; }
 .p-section-heading { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 40px; }
 .p-section-heading h2 { font-size: clamp(31px, 3.5vw, 56px); letter-spacing: -.055em; line-height: 1.12; font-weight: 500; margin: 0; }
 .p-section-heading h2 em { font-size: 1.13em; color: #b8b0b0; }
@@ -281,7 +281,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 100px; }
   .p-impact-strip strong small { font-size: 7px; }
   .p-impact-strip div > span:not(.p-label) { font-size: 8px; }
   .p-impact-strip p { font-size: 7px; }
-  .p-section { padding-top: 72px; scroll-margin-top: -50px; }
+  .p-section { padding-top: 72px; scroll-margin-top: 0; }
   .p-section-heading { display: block; margin-bottom: 27px; }
   .p-section-heading h2 { font-size: clamp(29px, 6.3vw, 42px); }
   .p-section-heading > p, .p-career-summary { max-width: 430px; margin-top: 23px; font-size: 12px; }

@@ -28,6 +28,9 @@ for (const path of [
   assert.ok(existsSync(new URL(path, import.meta.url)), `Required public asset is missing: ${path}`);
 }
 
+const styles = readFileSync(new URL('../src/portfolio.css', import.meta.url), 'utf8');
+assert.doesNotMatch(styles, /scroll-margin-top:\s*-\d/, 'Anchor targets must not be positioned above the fixed header');
+
 const robots = readFileSync(new URL('../public/robots.txt', import.meta.url), 'utf8');
 assert.match(robots, /User-agent:\s*\*/i);
 assert.match(robots, /Allow:\s*\//i);
