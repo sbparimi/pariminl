@@ -37,7 +37,7 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
     }
     // Use a professionally generated, resonant voiceover rather than the browser's robotic TTS.
     // Trigger play directly inside the visitor gesture as a fallback for autoplay-restricted browsers.
-    if (voice && voice.paused && beatRef.current >= 3 && beatRef.current < 8) {
+    if (voice && voice.paused && beatRef.current >= 1 && beatRef.current < 8) {
       void voice.play().then(() => { audioStarted.current = true; }).catch(() => {});
     }
   };
@@ -79,10 +79,8 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
   }, [reduced]);
 
   useEffect(() => {
-    // Start the human-sounding narration as soon as the main title appears.
-    // The story must begin when both the Suresh title and ORIGINAL SERIES card have landed.
-    // Start at beat 3, not beat 2 (which only reveals the name).
-    if (beat === 3 && narration.current && narration.current.paused) {
+    // Start narration exactly when the opening studio label “A Parimi Original” appears.
+    if (beat === 1 && narration.current && narration.current.paused) {
       void narration.current.play().then(() => { audioStarted.current = true; }).catch(() => {});
     }
   }, [beat]);
