@@ -19,13 +19,13 @@ export const profile = {
   "firstName": "SURESH",
   "seriesTag": "THE QUALITY SERIES",
   "originalLabel": "A PARIMI ORIGINAL",
-  "role": "AI Quality Engineering Leader",
+  "role": "Test Engineering & Quality Engineering Leader",
   "tagline": [
-    "AI Quality Engineering",
-    "Automation Architecture",
-    "Test & Release Leadership"
+    "Test Engineering Leadership",
+    "Quality Engineering & Automation",
+    "AI Quality & AIOps"
   ],
-  "intro": "Quality Engineering leader with 18+ years of experience connecting hands-on automation, AI evaluation and enterprise release governance. I build evidence-driven quality systems for conversational AI, healthcare workflows and business-critical platforms.",
+  "intro": "Test and Quality Engineering leader with 18+ years of experience building automation strategy, leading distributed QA teams, governing releases and improving engineering reliability. I connect quality metrics, AI evaluation, observability and AIOps practices to help teams detect risk earlier and ship dependable software.",
   "location": "Amsterdam, Netherlands",
   "email": "reachparimi@gmail.com",
   "links": {
@@ -39,9 +39,9 @@ export const profile = {
     "alt": "SP monogram artwork for Suresh Parimi"
   },
   "interests": [
-    "LLM & multi-agent evaluation",
-    "Agentic testing",
-    "Healthcare & regulated systems"
+    "Test Engineering & Quality Leadership",
+    "AI Quality Engineering & AIOps",
+    "Observability, reliability & release confidence"
   ]
 };
 
@@ -939,8 +939,8 @@ export const introSlides: IntroSlide[] = [
     "kicker": "The lead",
     "title": "Suresh Parimi",
     "lines": [
-      "AI Quality Engineering Leader",
-      "Amsterdam, Netherlands"
+      "Test Engineering & Quality Engineering Leader",
+      "AI Quality • AIOps • Release Governance"
     ],
     "chips": [
       "18+ years in Quality Engineering"
@@ -956,10 +956,10 @@ export const introSlides: IntroSlide[] = [
   },
   {
     "kicker": "AI quality",
-    "title": "Evidence over assumptions.",
+    "title": "Quality with operational evidence.",
     "lines": [
-      "Multi-agent evaluation at PostNL",
-      "RAG, MCP, LLM-as-a-Judge and HITL"
+      "AI evaluation, reliability and release confidence at PostNL",
+      "RAG, routing, tool-call correctness and human oversight"
     ]
   },
   {
@@ -984,7 +984,7 @@ export const sectionMeta: Record<SectionId,{nav:string;card:string;meta:string;p
   "about": {
     "nav": "About",
     "card": "About Me",
-    "meta": "Quality engineering & leadership",
+    "meta": "Test leadership, AI quality & AIOps",
     "palette": {
       "from": "#24060b",
       "via": "#6e0d1d",
@@ -1006,7 +1006,7 @@ export const sectionMeta: Record<SectionId,{nav:string;card:string;meta:string;p
   "originals": {
     "nav": "Case Studies",
     "card": "Case Studies",
-    "meta": "Enterprise engagements & personal work",
+    "meta": "Quality engineering, AI evaluation & operational reliability",
     "palette": {
       "from": "#24060b",
       "via": "#6e0d1d",
@@ -1028,7 +1028,7 @@ export const sectionMeta: Record<SectionId,{nav:string;card:string;meta:string;p
   "skills": {
     "nav": "Skills",
     "card": "My Skills",
-    "meta": "AI, automation & enterprise delivery",
+    "meta": "Quality strategy, automation, observability & AIOps",
     "palette": {
       "from": "#24060b",
       "via": "#6e0d1d",
