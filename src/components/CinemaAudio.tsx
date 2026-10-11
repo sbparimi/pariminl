@@ -10,6 +10,7 @@ export default function CinemaAudio({ active, visible }: { active: boolean; visi
   const [voice, setVoice] = useState(true);
   const [topic, setTopic] = useState('top');
   const [status, setStatus] = useState('');
+  const [volume, setVolume] = useState(72);
   const score = useRef<HTMLAudioElement | null>(null);
   const narration = useRef<HTMLAudioElement | null>(null);
   const last = useRef('');
@@ -21,8 +22,9 @@ export default function CinemaAudio({ active, visible }: { active: boolean; visi
     narration.current = clip;
     last.current = id;
     const bed = score.current;
-    if (bed) bed.volume = 0.045;
-    const restore = () => { if (bed) bed.volume = 0.18; setSpeaking(false); };
+    if (bed) bed.volume = (volume / 100) * 0.045;
+    clip.volume = volume / 100;
+    const restore = () => { if (bed) bed.volume = (volume / 100) * 0.18; setSpeaking(false); };
     clip.onplaying = () => setSpeaking(true);
     clip.onended = restore;
     clip.onerror = () => { restore(); last.current = ''; setStatus('Narration could not load. Try Replay voice.'); };
@@ -43,6 +45,11 @@ export default function CinemaAudio({ active, visible }: { active: boolean; visi
     score.current = bed;
     return () => { bed.pause(); narration.current?.pause(); };
   }, []);
+
+  useEffect(() => {
+    if (score.current) score.current.volume = (volume / 100) * (speaking ? 0.045 : 0.18);
+    if (narration.current) narration.current.volume = volume / 100;
+  }, [volume, speaking]);
 
   useEffect(() => {
     window.addEventListener('portfolio-enable-audio', enable);
@@ -108,6 +115,21 @@ export default function CinemaAudio({ active, visible }: { active: boolean; visi
           <button onClick={() => setVoice(!voice)} aria-pressed={voice} className={`text-xs ${voice ? 'text-crimson-2' : 'text-smoke'}`}>Voice</button>
         </>}
       </div>
+      {enabled && <div className="mt-3 flex items-center gap-3">
+        <label htmlFor="cinema-volume" className="text-[10px] uppercase tracking-widest text-mist">Volume</label>
+        <input
+          id="cinema-volume"
+          aria-label="Master audio volume"
+          type="range"
+          min="0"
+          max="100"
+          step="1"
+          value={volume}
+          onChange={(event) => setVolume(Number(event.currentTarget.value))}
+          className="h-1 w-24 cursor-pointer accent-[#ff3d5a]"
+        />
+        <span className="w-8 text-right text-[10px] tabular-nums text-mist">{volume}%</span>
+      </div>}
       {enabled && <button onClick={() => { setVoice(true); announce(topic); }} className="mt-2 text-xs text-bone underline underline-offset-4">Replay voice</button>}
       {enabled && <p className="mt-2 max-w-64 truncate text-[10px] uppercase tracking-widest text-mist">{speaking ? 'Narrating · ' : ''}{labels[topic]}</p>}
       {status && <p role="status" className="mt-2 max-w-64 text-xs text-mist">{status}</p>}
