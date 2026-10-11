@@ -34,7 +34,7 @@ assert.match(opening, /at: 13800, beat: 8/, 'The opening must reach the portfoli
 assert.doesNotMatch(opening, /44000/, 'The opening must not block the portfolio for 44 seconds');
 
 const hero = readFileSync(new URL('../src/components/Hero.tsx', import.meta.url), 'utf8');
-assert.doesNotMatch(hero, /calendar\\.google\\.com\\/calendar\\/render\\?action=TEMPLATE/, 'Do not present an event template as a booking workflow');
+assert.doesNotMatch(hero, /calendar\.google\.com\/calendar\/render\?action=TEMPLATE/, 'Do not present an event template as a booking workflow');
 assert.match(hero, /Request a coffee chat/, 'The coffee CTA must accurately describe its action');
 
 const styles = readFileSync(new URL('../src/portfolio.css', import.meta.url), 'utf8');
