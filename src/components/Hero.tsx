@@ -178,12 +178,10 @@ export default function Hero({ onPlay }: { onPlay: () => void }) {
             Let’s talk
           </a>
           <a
-            href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Coffee with Suresh Parimi — AI Quality')}&details=${encodeURIComponent('Introductory conversation about AI evaluation, data quality and engineering leadership. Please adjust the time and invite reachparimi@gmail.com.')}&add=${encodeURIComponent(profile.email)}`}
-            target="_blank"
-            rel="noreferrer"
+            href={`mailto:${profile.email}?subject=${encodeURIComponent('Coffee chat — AI quality and engineering')}&body=${encodeURIComponent('Hi Suresh,\n\nI would like to arrange a short coffee chat about AI quality, data evaluation or engineering leadership. Please let me know a convenient time.\n\nThank you')}`}
             className="flex min-h-12 items-center justify-center rounded-md border border-white/25 px-5 py-3 text-sm font-semibold text-bone transition hover:border-bone hover:bg-white/10"
           >
-            Coffee with Suresh ↗
+            Request a coffee chat
           </a>
           <button
             type="button"
@@ -210,11 +208,11 @@ export default function Hero({ onPlay }: { onPlay: () => void }) {
           <a href={`mailto:${profile.email}?subject=${encodeURIComponent('Discuss AI and data evaluation')}&body=${encodeURIComponent('Hi Suresh,\\n\\nI would like to discuss AI/data evaluation and quality engineering. Please let me know a convenient time.\\n\\nThank you')}`} className="flex min-h-11 items-center justify-center gap-2 rounded-lg bg-bone px-4 py-3 text-sm font-bold text-ink transition hover:bg-white">
             Discuss AI evaluation <span aria-hidden>↗</span>
           </a>
-          <a href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Coffee with Suresh Parimi — AI Quality')}&details=${encodeURIComponent('A short introductory conversation about AI evaluation, data quality and engineering leadership. Please adjust the time and invite reachparimi@gmail.com.')}&add=${encodeURIComponent(profile.email)}`} target="_blank" rel="noreferrer" className="flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/20 px-4 py-3 text-sm font-semibold text-bone transition hover:border-white/50 hover:bg-white/10">
-            <span aria-hidden>◷</span> Arrange a coffee / meeting <span aria-hidden>↗</span>
+          <a href={`mailto:${profile.email}?subject=${encodeURIComponent('Coffee chat — AI quality and engineering')}&body=${encodeURIComponent('Hi Suresh,\n\nI would like to arrange a short coffee chat about AI quality, data evaluation or engineering leadership. Please let me know a convenient time.\n\nThank you')}`} className="flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/20 px-4 py-3 text-sm font-semibold text-bone transition hover:border-white/50 hover:bg-white/10">
+            <span aria-hidden>◷</span> Request a coffee chat <span aria-hidden>↗</span>
           </a>
         </div>
-        <p className="mt-3 text-[10px] leading-relaxed text-smoke">Calendar opens a pre-filled invitation. Choose a time and send the invite; no calendar access is required.</p>
+        <p className="mt-3 text-[10px] leading-relaxed text-smoke">Send a short email to arrange a time. A live booking calendar will be added once scheduling is connected.</p>
       </motion.aside>
 
       <motion.div aria-hidden className="pointer-events-none absolute inset-0 z-[5] bg-ink" style={{ opacity: blackout }} />
