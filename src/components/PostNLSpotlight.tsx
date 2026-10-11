@@ -68,7 +68,7 @@ export default function PostNLSpotlight() {
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
-              {pillars.map((pillar, i) => (
+              {pillars.map((pillar) => (
                 <motion.div
                   key={pillar.code}
                   whileHover={{ y: -3, borderColor: 'rgba(102,217,255,0.42)' }}
