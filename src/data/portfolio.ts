@@ -330,11 +330,6 @@ export const certifications: Certification[] = [
     "issuer": "ISTQB",
     "name": "Certified Tester Foundation Level (CTFL)",
     "link": ""
-  },
-  {
-    "issuer": "Professional qualification",
-    "name": "Accredited Payments Risk Professional (APRP)",
-    "link": ""
   }
 ];
 
