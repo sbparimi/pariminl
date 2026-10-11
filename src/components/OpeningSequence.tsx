@@ -13,10 +13,10 @@ const TIMELINE = [
   { at: 1700, beat: 2 }, // name
   { at: 2500, beat: 3 }, // THE SERIES
   { at: 3300, beat: 4 }, // portrait and origin story
-  { at: 7800, beat: 5 }, // engineering foundation
-  { at: 12800, beat: 6 }, // first software testing role
-  { at: 18300, beat: 7 }, // career evolution
-  { at: 24500, beat: 8 }, // role and play button
+  { at: 10500, beat: 5 }, // engineering foundation
+  { at: 17500, beat: 6 }, // first software testing role
+  { at: 25000, beat: 7 }, // career evolution
+  { at: 37000, beat: 8 }, // role and play button
 ];
 
 export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) => void }) {
@@ -27,12 +27,6 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
   const audioStarted = useRef(false);
   const beatRef = useRef(beat);
   beatRef.current = beat;
-  const story = [
-    'Every journey has a beginning. Mine started in a small village in India, with a big ambition to build a future through learning.',
-    'I completed my Electrical and Electronics Engineering degree. It taught me to think in systems, trace a problem to its source, and look for evidence, not assumptions.',
-    'My first turn into software was software testing. What began as a way to understand whether technology worked became a craft: finding what could fail before it mattered to someone.',
-    'Over eighteen years, that craft grew into automation architecture, release leadership, global team mentoring and AI quality engineering, helping teams ship with stronger evidence and confidence.',
-  ];
 
   const startAudio = () => {
     const bed = score.current;
