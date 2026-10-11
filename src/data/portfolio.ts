@@ -364,8 +364,20 @@ export const skillCategories: SkillCategory[] = [
         "mono": "LL"
       },
       {
-        "name": "HITL",
-        "mono": "HI"
+        "name": "Agentic SDLC",
+        "mono": "AS"
+      },
+      {
+        "name": "Autonomous Test Automation",
+        "mono": "AT"
+      },
+      {
+        "name": "AI Agent Evaluation",
+        "mono": "AE"
+      },
+      {
+        "name": "Tool-Call Validation",
+        "mono": "TV"
       }
     ]
   },
@@ -393,6 +405,22 @@ export const skillCategories: SkillCategory[] = [
       {
         "name": "REST Assured",
         "mono": "RE"
+      },
+      {
+        "name": "Autonomous Test Automation",
+        "mono": "AT"
+      },
+      {
+        "name": "API Testing",
+        "mono": "AP"
+      },
+      {
+        "name": "End-to-End Testing",
+        "mono": "E2"
+      },
+      {
+        "name": "Test Framework Design",
+        "mono": "TF"
       }
     ]
   },
@@ -476,6 +504,30 @@ export const skillCategories: SkillCategory[] = [
         "mono": "Gi"
       },
       {
+        "name": "CI/CD",
+        "mono": "CI"
+      },
+      {
+        "name": "Release Governance",
+        "mono": "RG"
+      },
+      {
+        "name": "Risk Governance",
+        "mono": "RK"
+      },
+      {
+        "name": "Quality Assurance",
+        "mono": "QA"
+      },
+      {
+        "name": "Quality Engineering",
+        "mono": "QE"
+      },
+      {
+        "name": "Test Strategy",
+        "mono": "TS"
+      },
+      {
         "name": "UAT",
         "mono": "UA"
       },
@@ -513,6 +565,18 @@ export const skillCategories: SkillCategory[] = [
       {
         "name": "SWIFT / SEPA",
         "mono": "SW"
+      },
+      {
+        "name": "Data Quality",
+        "mono": "DQ"
+      },
+      {
+        "name": "Data Validation",
+        "mono": "DV"
+      },
+      {
+        "name": "Risk-Based Testing",
+        "mono": "RB"
       }
     ]
   }
@@ -537,8 +601,53 @@ export const skillEvidence: Record<string,string[]> = {
   "LLM-as-a-Judge": [
     "Source résumé: AI Quality Engineering"
   ],
-  "HITL": [
-    "Source résumé: AI Quality Engineering"
+  "Agentic SDLC": [
+    "AI evaluation and agentic workflow quality strategy"
+  ],
+  "Autonomous Test Automation": [
+    "Reusable Playwright automation and AI-assisted test tooling"
+  ],
+  "AI Agent Evaluation": [
+    "RAG faithfulness, agent routing and response quality"
+  ],
+  "Tool-Call Validation": [
+    "MCP tool-calling and agent action correctness"
+  ],
+  "API Testing": [
+    "REST Assured and API/UI automation"
+  ],
+  "End-to-End Testing": [
+    "Enterprise and healthcare business workflows"
+  ],
+  "Test Framework Design": [
+    "Reusable Playwright, TypeScript, Selenium and REST Assured frameworks"
+  ],
+  "CI/CD": [
+    "GitLab CI/CD, Jenkins and GitHub Actions"
+  ],
+  "Release Governance": [
+    "Go/No-Go, cutover and rollback readiness"
+  ],
+  "Risk Governance": [
+    "Risk-based validation and regulated workflow controls"
+  ],
+  "Quality Assurance": [
+    "18+ years across enterprise, healthcare, financial services and AI quality"
+  ],
+  "Quality Engineering": [
+    "Automation strategy, measurable quality signals and release confidence"
+  ],
+  "Test Strategy": [
+    "Test planning, risk-based coverage and release readiness"
+  ],
+  "Data Quality": [
+    "Validation of data-dependent business and AI workflows"
+  ],
+  "Data Validation": [
+    "Cross-system and business workflow validation"
+  ],
+  "Risk-Based Testing": [
+    "Regulated workflows, compliance checks and release risk"
   ],
   "Playwright": [
     "Source résumé: Automation"
