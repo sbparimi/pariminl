@@ -10,16 +10,18 @@ import { EASE, Magnetic } from './fx';
  */
 const TIMELINE = [
   { at: 300, beat: 1 }, // studio card
-  { at: 1900, beat: 2 }, // name
-  { at: 2700, beat: 3 }, // THE SERIES
-  { at: 3400, beat: 4 }, // portrait
-  { at: 4300, beat: 5 }, // role
-  { at: 5000, beat: 6 }, // play button
+  { at: 1700, beat: 2 }, // name
+  { at: 2500, beat: 3 }, // THE SERIES
+  { at: 3300, beat: 4 }, // portrait and origin story
+  { at: 4300, beat: 5 }, // engineering foundation
+  { at: 5600, beat: 6 }, // first software testing role
+  { at: 6900, beat: 7 }, // career evolution
+  { at: 8200, beat: 8 }, // role and play button
 ];
 
 export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) => void }) {
   const reduced = useReducedMotionPref();
-  const [beat, setBeat] = useState(reduced ? 6 : 0);
+  const [beat, setBeat] = useState(reduced ? 8 : 0);
 
   useEffect(() => {
     if (reduced) return;
@@ -44,8 +46,8 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
       aria-label="Opening titles"
     >
       {/* letterbox bars */}
-      <motion.div className="absolute inset-x-0 top-0 z-30 h-[7vh] bg-black" initial={{ y: 0 }} animate={{ y: beat >= 6 ? '-100%' : 0 }} transition={{ duration: 1.2, ease: EASE }} />
-      <motion.div className="absolute inset-x-0 bottom-0 z-30 h-[7vh] bg-black" initial={{ y: 0 }} animate={{ y: beat >= 6 ? '100%' : 0 }} transition={{ duration: 1.2, ease: EASE }} />
+      <motion.div className="absolute inset-x-0 top-0 z-30 h-[7vh] bg-black" initial={{ y: 0 }} animate={{ y: beat >= 8 ? '-100%' : 0 }} transition={{ duration: 1.2, ease: EASE }} />
+      <motion.div className="absolute inset-x-0 bottom-0 z-30 h-[7vh] bg-black" initial={{ y: 0 }} animate={{ y: beat >= 8 ? '100%' : 0 }} transition={{ duration: 1.2, ease: EASE }} />
 
       {/* projector flicker light */}
       <motion.div
@@ -112,11 +114,40 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
         <motion.p
           className="font-sans text-sm font-bold text-crimson-2 [text-shadow:0_2px_20px_rgba(0,0,0,0.9)] sm:text-lg"
           initial={{ opacity: 0, letterSpacing: '1.4em' }}
-          animate={beat >= 3 ? { opacity: 1, letterSpacing: '0.7em', y: beat >= 4 ? '-30vh' : 0 } : {}}
+          animate={beat >= 3 ? { opacity: 1, letterSpacing: '0.7em', y: beat >= 4 ? '-32vh' : 0 } : {}}
           transition={{ duration: 1.1, ease: EASE }}
         >
           {profile.seriesTag}
         </motion.p>
+      </div>
+
+      {/* origin story: the human narrative behind the career */}
+      <div className="absolute inset-x-0 top-[47%] z-20 mx-auto flex w-full max-w-3xl -translate-y-1/2 flex-col items-center px-6 text-center sm:top-[48%]">
+        <AnimatePresence mode="wait">
+          {beat >= 4 && beat < 8 && (
+            <motion.div
+              key={beat < 5 ? 'village' : beat < 6 ? 'engineering' : beat < 7 ? 'testing' : 'evolution'}
+              initial={{ opacity: 0, y: 22, filter: 'blur(8px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, y: -16, filter: 'blur(6px)' }}
+              transition={{ duration: 0.65, ease: EASE }}
+              className="max-w-2xl rounded-2xl border border-white/10 bg-black/45 px-5 py-4 shadow-[0_20px_80px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-8 sm:py-5"
+            >
+              <p className="mb-2 font-sans text-[9px] font-bold uppercase tracking-[0.35em] text-cyan-200 sm:text-[10px]">
+                {beat < 5 ? 'THE BEGINNING' : beat < 6 ? 'THE FOUNDATION' : beat < 7 ? 'THE FIRST TURN' : 'THE JOURNEY FORWARD'}
+              </p>
+              <p className="font-sans text-sm leading-relaxed text-white/90 sm:text-lg sm:leading-relaxed">
+                {beat < 5
+                  ? 'Every journey has a beginning. Mine started in a small village in India, with a big ambition to build a future through learning.'
+                  : beat < 6
+                    ? 'I completed my Electrical & Electronics Engineering degree. It taught me to think in systems, trace a problem to its source, and look for evidence—not assumptions.'
+                    : beat < 7
+                      ? 'My first turn into software was software testing. What began as a way to understand whether technology worked became a craft: finding what could fail before it mattered to someone.'
+                      : 'Over 18+ years, that craft grew into automation architecture, release leadership, global team mentoring and AI quality engineering—helping teams ship with stronger evidence and confidence.'}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* role + play */}
@@ -124,18 +155,18 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
         <motion.p
           className="font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-bone/90 sm:text-sm sm:tracking-[0.4em]"
           initial={{ opacity: 0, y: 14 }}
-          animate={beat >= 5 ? { opacity: 1, y: 0 } : {}}
+          animate={beat >= 8 ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: EASE }}
         >
           {profile.tagline.join('  •  ')}
         </motion.p>
-        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={beat >= 6 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.7, ease: EASE }}>
+        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={beat >= 8 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.7, ease: EASE }}>
           <Magnetic>
             <button
               type="button"
               data-cursor="play"
               onClick={() => onDone(true)}
-              tabIndex={beat >= 6 ? 0 : -1}
+              tabIndex={beat >= 8 ? 0 : -1}
               className="group flex items-center gap-3 rounded-full bg-bone px-9 py-4 font-sans text-base font-bold tracking-wide text-ink shadow-[0_0_60px_rgba(229,19,43,0.45)] transition hover:bg-white"
             >
               <span className="text-lg transition-transform group-hover:scale-125">▶</span> PLAY WITH SOUND
