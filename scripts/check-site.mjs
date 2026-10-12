@@ -22,6 +22,7 @@ for (const path of [
   '../public/favicon.svg',
   '../public/assets/og-image.jpg',
   '../public/assets/Suresh_Parimi_Resume.pdf',
+  '../public/audio/opening.wav',
   '../public/robots.txt',
   '../public/sitemap.xml',
 ]) {
@@ -36,6 +37,10 @@ assert.doesNotMatch(opening, /44000/, 'The opening must not block the portfolio 
 const hero = readFileSync(new URL('../src/components/Hero.tsx', import.meta.url), 'utf8');
 assert.doesNotMatch(hero, /calendar\.google\.com\/calendar\/render\?action=TEMPLATE/, 'Do not present an event template as a booking workflow');
 assert.match(hero, /Request a coffee chat/, 'The coffee CTA must accurately describe its action');
+const storyAudio = readFileSync(new URL('../public/audio/opening.wav', import.meta.url));
+assert.equal(storyAudio.toString('ascii', 0, 4), 'RIFF', 'Opening story must be a WAV file, not an HTML response');
+assert.equal(storyAudio.toString('ascii', 8, 12), 'WAVE', 'Opening story must contain WAV audio');
+assert.ok(storyAudio.length > 44, 'Opening story must contain audio samples');
 
 const styles = readFileSync(new URL('../src/portfolio.css', import.meta.url), 'utf8');
 assert.doesNotMatch(styles, /scroll-margin-top:\s*-\d/, 'Anchor targets must not be positioned above the fixed header');

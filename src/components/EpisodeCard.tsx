@@ -33,7 +33,11 @@ export default function EpisodeCard({ episode, index }: { episode: Episode; inde
                 ▶
               </span>
             </div>
-            <p className="text-sm leading-relaxed text-bone/80">{episode.description}</p>
+            <p className="text-sm leading-relaxed text-bone/80">{episode.description.split(/(\*\*[^*]+\*\*)/g).map((part, partIndex) =>
+              part.startsWith('**') && part.endsWith('**')
+                ? <strong key={partIndex}>{part.slice(2, -2)}</strong>
+                : part,
+            )}</p>
             <div className="mt-auto flex flex-wrap gap-1.5 pt-4">
               {episode.tags.map((t) => (
                 <span key={t} className="rounded-full bg-white/[0.06] px-2.5 py-1 text-[11px] text-mist">

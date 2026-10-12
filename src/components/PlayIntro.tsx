@@ -3,6 +3,7 @@ import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
 import { introSlides, profile } from '../data/portfolio';
 import { useScrollLock } from '../hooks/smoothScroll';
 import { useReducedMotionPref } from '../hooks/useMedia';
+import { useModalDialog } from '../hooks/useModalDialog';
 import { EASE } from './fx';
 
 const SLIDE_MS = 3600;
@@ -13,6 +14,7 @@ const SLIDE_MS = 3600;
  */
 export default function PlayIntro({ onClose }: { onClose: () => void }) {
   useScrollLock(true);
+  const dialog = useModalDialog();
   const reduced = useReducedMotionPref();
   const [phase, setPhase] = useState<'zoom' | 'reel' | 'end'>(reduced ? 'reel' : 'zoom');
   const [index, setIndex] = useState(0);
@@ -67,10 +69,10 @@ export default function PlayIntro({ onClose }: { onClose: () => void }) {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
       if (e.key === 'ArrowRight') next();
       if (e.key === 'ArrowLeft') prev();
       if (e.key === ' ') {
+        if ((e.target as HTMLElement | null)?.closest('button, a, input, textarea, select')) return;
         e.preventDefault();
         setPaused((p) => !p);
       }
@@ -82,8 +84,10 @@ export default function PlayIntro({ onClose }: { onClose: () => void }) {
   const slide = introSlides[index];
 
   return (
-    <motion.div
-      className="fixed inset-0 z-[130] overflow-hidden bg-black"
+    <motion.dialog
+      ref={dialog}
+      onCancel={(event) => { event.preventDefault(); onClose(); }}
+      className="cinema-dialog fixed inset-0 z-[130] overflow-hidden bg-black"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, filter: 'blur(10px)' }}
@@ -125,7 +129,7 @@ export default function PlayIntro({ onClose }: { onClose: () => void }) {
       )}
 
       {/* reel */}
-      <div className="relative z-10 flex h-full items-center justify-center px-6 text-center">
+      <div className="pointer-events-none relative z-10 flex h-full items-center justify-center px-6 text-center">
         <AnimatePresence mode="wait">
           {phase === 'reel' && (
             <motion.div
@@ -206,6 +210,7 @@ export default function PlayIntro({ onClose }: { onClose: () => void }) {
         </div>
         <button
           type="button"
+          data-modal-initial-focus
           onClick={onClose}
           data-cursor="close"
           className="rounded-full bg-bone px-5 py-2.5 text-xs font-bold tracking-[0.18em] text-ink transition hover:bg-white"
@@ -213,6 +218,6 @@ export default function PlayIntro({ onClose }: { onClose: () => void }) {
           BACK TO BROWSE
         </button>
       </div>
-    </motion.div>
+    </motion.dialog>
   );
 }

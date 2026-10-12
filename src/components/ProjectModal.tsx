@@ -4,6 +4,7 @@ import { projects, type Project } from '../data/portfolio';
 import { useScrollLock } from '../hooks/smoothScroll';
 import { EASE, Magnetic } from './fx';
 import { ProjectArt } from './Poster';
+import { useModalDialog } from '../hooks/useModalDialog';
 
 const block = {
   hidden: { opacity: 0, y: 24, filter: 'blur(8px)' },
@@ -12,19 +13,8 @@ const block = {
 
 export default function ProjectModal({ project, onClose, onSwitch }: { project: Project; onClose: () => void; onSwitch: (p: Project) => void }) {
   useScrollLock(true);
+  const dialog = useModalDialog();
   const scroller = useRef<HTMLDivElement>(null);
-  const closeBtn = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    const prevFocus = document.activeElement as HTMLElement | null;
-    closeBtn.current?.focus({ preventScroll: true });
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
-    window.addEventListener('keydown', onKey);
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      prevFocus?.focus?.({ preventScroll: true });
-    };
-  }, [onClose]);
 
   useEffect(() => {
     scroller.current?.scrollTo({ top: 0 });
@@ -33,7 +23,7 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
   const more = projects.filter((p) => p.id !== project.id);
 
   return (
-    <motion.div className="fixed inset-0 z-[140]" role="dialog" aria-modal="true" aria-labelledby={`title-${project.id}-modal`}>
+    <motion.dialog ref={dialog} onCancel={(event) => { event.preventDefault(); onClose(); }} className="cinema-dialog fixed inset-0 z-[140] bg-transparent" aria-modal="true" aria-labelledby={`title-${project.id}-modal`}>
       <motion.div
         className="absolute inset-0 bg-black/80 backdrop-blur-md"
         initial={{ opacity: 0 }}
@@ -56,7 +46,7 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
             </motion.div>
             <div className="absolute inset-0 bg-gradient-to-t from-ink-2 via-ink-2/30 to-transparent" />
             <button
-              ref={closeBtn}
+              data-modal-initial-focus
               type="button"
               onClick={onClose}
               data-cursor="close"
@@ -191,6 +181,6 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
           </motion.div>
         </motion.div>
       </div>
-    </motion.div>
+    </motion.dialog>
   );
 }

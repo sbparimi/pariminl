@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { profile } from '../data/portfolio';
 import { useReducedMotionPref } from '../hooks/useMedia';
+import { useModalDialog } from '../hooks/useModalDialog';
 import { EASE, Magnetic } from './fx';
 
 /**
@@ -21,32 +22,74 @@ const TIMELINE = [
 
 export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) => void }) {
   const reduced = useReducedMotionPref();
+  const dialog = useModalDialog();
   const [beat, setBeat] = useState(reduced ? 8 : 0);
+  const score = useRef<HTMLAudioElement | null>(null);
+  const narration = useRef<HTMLAudioElement | null>(null);
+  const [storyPlaying, setStoryPlaying] = useState(false);
+  const [audioStatus, setAudioStatus] = useState('');
+
+  const startAudio = () => {
+    const voice = narration.current;
+    if (!voice) return;
+    if (voice.ended) voice.currentTime = 0;
+    setAudioStatus('Loading story…');
+    void voice.play().then(() => setAudioStatus('')).catch(() => {
+      setAudioStatus('Sound could not start. Try Play my story again, or continue to the website.');
+    });
+    void score.current?.play().catch(() => {});
+  };
+
   useEffect(() => {
-    if (reduced) return;
+    const bed = new Audio('/audio/score.wav');
+    bed.loop = true;
+    bed.volume = 0.18;
+    const voice = narration.current;
+    if (!voice) return;
+    voice.volume = 1;
+    score.current = bed;
+    voice.onplaying = () => { setStoryPlaying(true); setAudioStatus(''); };
+    voice.onpause = () => setStoryPlaying(false);
+    voice.onended = () => { setStoryPlaying(false); setAudioStatus('Story finished. Continue to explore the website.'); };
+    voice.onerror = () => { setStoryPlaying(false); setAudioStatus('Story audio is unavailable. You can still continue to the website.'); };
+    return () => {
+      voice.onplaying = null;
+      voice.onpause = null;
+      voice.onended = null;
+      voice.onerror = null;
+      bed.pause();
+      voice.pause();
+      voice.currentTime = 0;
+      score.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (reduced) { setBeat(8); return; }
     const timers = TIMELINE.map(({ at, beat }) => window.setTimeout(() => setBeat(beat), at));
     return () => timers.forEach(clearTimeout);
   }, [reduced]);
 
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onDone(false);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [onDone]);
+  const finish = () => {
+    score.current?.pause();
+    narration.current?.pause();
+    onDone(false);
+  };
 
   return (
-    <motion.div
-      className="fixed inset-0 z-[120] overflow-hidden bg-black"
-      onWheel={(event) => { if (Math.abs(event.deltaY) > 8) onDone(false); }}
-      onTouchStart={(event) => { (event.currentTarget as HTMLDivElement).dataset.touchY = String(event.touches[0]?.clientY ?? 0); }}
-      onTouchEnd={(event) => { const start = Number((event.currentTarget as HTMLDivElement).dataset.touchY ?? 0); const end = event.changedTouches[0]?.clientY ?? start; if (start - end > 36) onDone(false); }}
+    <motion.dialog
+      ref={dialog}
+      onCancel={(event) => { event.preventDefault(); finish(); }}
+      onWheel={(event) => { if (Math.abs(event.deltaY) > 8) finish(); }}
+      onTouchStart={(event) => { event.currentTarget.dataset.touchY = String(event.touches[0]?.clientY ?? 0); }}
+      onTouchEnd={(event) => { const start = Number(event.currentTarget.dataset.touchY ?? 0); const end = event.changedTouches[0]?.clientY ?? start; if (start - end > 36) finish(); }}
+      className="cinema-dialog fixed inset-0 z-[120] overflow-hidden bg-black"
       exit={{ opacity: 0, scale: 1.04, filter: 'blur(12px)' }}
       transition={{ duration: 0.9, ease: EASE }}
       role="dialog"
       aria-label="Opening titles"
     >
+      <audio ref={narration} src="/audio/opening.wav" preload="auto" />
       {/* letterbox bars */}
       <motion.div className="absolute inset-x-0 top-0 z-30 h-[7vh] bg-black" initial={{ y: 0 }} animate={{ y: beat >= 8 ? '-100%' : 0 }} transition={{ duration: 1.2, ease: EASE }} />
       <motion.div className="absolute inset-x-0 bottom-0 z-30 h-[7vh] bg-black" initial={{ y: 0 }} animate={{ y: beat >= 8 ? '100%' : 0 }} transition={{ duration: 1.2, ease: EASE }} />
@@ -162,19 +205,20 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
         >
           {profile.tagline.join('  •  ')}
         </motion.p>
-        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={beat >= 8 ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.7, ease: EASE }}>
+        <div className="flex flex-wrap justify-center gap-3">
+          <button type="button" data-modal-initial-focus onClick={() => { if (storyPlaying) { narration.current?.pause(); score.current?.pause(); } else startAudio(); }} className="min-h-11 rounded-full border border-white/30 bg-black/70 px-5 py-3 text-sm font-semibold text-bone">{storyPlaying ? 'Pause story' : 'Play my story'}</button>
           <Magnetic>
             <button
               type="button"
               data-cursor="play"
-              onClick={() => onDone(true)}
-              tabIndex={beat >= 8 ? 0 : -1}
-              className="group flex items-center gap-3 rounded-full bg-bone px-9 py-4 font-sans text-base font-bold tracking-wide text-ink shadow-[0_0_60px_rgba(229,19,43,0.45)] transition hover:bg-white"
+              onClick={finish}
+              className="group flex items-center gap-3 rounded-full bg-bone px-5 py-3 font-sans text-sm font-bold tracking-wide text-ink shadow-[0_0_60px_rgba(229,19,43,0.45)] transition hover:bg-white"
             >
-              <span className="text-lg transition-transform group-hover:scale-125">▶</span> ENTER &amp; HEAR MY STORY
+              <span className="text-lg transition-transform group-hover:scale-125">↗</span> CONTINUE TO WEBSITE
             </button>
           </Magnetic>
-        </motion.div>
+        </div>
+        <p role="status" className="max-w-lg text-xs text-mist">{audioStatus}</p>
       </div>
 
       <button
@@ -184,6 +228,6 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
       >
         SKIP INTRO · SCROLL TO EXPLORE
       </button>
-    </motion.div>
+    </motion.dialog>
   );
 }

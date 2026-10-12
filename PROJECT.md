@@ -24,18 +24,22 @@ with the original series theme retained as a visual influence. The portrait
 is an SP monogram. Resume downloads and career claims must remain grounded in
 verified source material; do not invent experience, clients, metrics or links.
 
-Music is an original synthesized score. Section narration uses generated Kokoro
-`bm_lewis` English audio assets. Browser autoplay restrictions require the site's
-sound-enabling interaction. Runtime music/narration does not make model calls.
+Music is an original synthesized score. Local section narration uses generated
+Kokoro `bm_lewis` English audio assets, including the locally hosted opening story.
+Browser autoplay restrictions can require the site's sound-enabling interaction.
+Runtime music/narration does not make model calls.
 Optional regeneration scripts are in `scripts/`; see the README for dependencies.
 
-The redesigned homepage does not load the earlier intro, audio, custom cursor or
-scroll interception. Its main interface is `PortfolioExperience.tsx`, with
-styles in `portfolio.css`. The browser-local AI quality lab uses clearly marked
-fictional fixtures, six deterministic assertions, editable answers, trace
-inspection and JSON report export. It makes no live model calls and does not
-claim to measure semantic faithfulness. Run `npm run check:evaluation` for its
-43 gate assertions. The persistent business card reuses verified profile links.
+The current homepage uses the cinematic interface composed in `src/App.tsx`,
+including a skippable opening, audio controls, custom cursor and Lenis scrolling.
+Opening narration, career chapters and music use local assets. Opening controls
+are available immediately, including an explicit story playback button for
+browsers that block autoplay. The editorial alternative in
+`PortfolioExperience.tsx` and `portfolio.css` is retained but not mounted. Its
+browser-local AI quality lab uses fictional fixtures, six deterministic assertions,
+editable answers, trace inspection and JSON report export. It makes no live model
+calls and does not claim to measure semantic faithfulness. Run
+`npm run check:evaluation` for its 43 gate assertions.
 
 Pending content request: review the resume's PostNL entry and include verified
 Cognigy, Salesforce automation, Oracle Fusion, agentic SDLC, and ML recommendation

@@ -1,6 +1,6 @@
 # Suresh Parimi — The Quality Series
 
-An editorial portfolio for Suresh Parimi, AI Quality Engineering Leader in Amsterdam. Built with React, TypeScript and Vite.
+A cinematic portfolio for Suresh Parimi in Amsterdam. Built with React, TypeScript and Vite.
 
 ## Run locally
 
@@ -8,13 +8,13 @@ Run `npm ci` if dependencies are missing, then `npm run dev -- --host 127.0.0.1 
 
 ## Current experience
 
-The homepage opens directly to Suresh's positioning and an illustrative AI quality architecture. Selected work can be filtered, and native modal dialogs show context, contributions and documented outcomes. An expertise explorer links skills to career engagements. The timeline uses keyboard-accessible disclosure controls. The persistent top-right business card includes email, LinkedIn, résumé download and a contact (.vcf) export.
+The homepage opens with a skippable cinematic sequence, followed by career chapters, selected work, skills and résumé actions. Story playback and Continue controls are available immediately. All narration is locally hosted; audible autoplay may require a visitor interaction. Native modal dialogs provide the highlight reel, project case studies and résumé viewer. Sound controls manage music, narration and volume.
 
-The AI quality lab runs six deterministic assertions against three fictional fixtures (grounding, tool calls and routing). Visitors can switch failing/corrected traces, edit an answer, inspect JSON and export evaluation reports. It uses no live models, external requests, credentials or production traces. Its answer check is a string assertion, not a semantic faithfulness metric. The on-page explanation distinguishes these checks from model-based evaluation and human review.
+The retained editorial interface includes an AI quality lab with six deterministic assertions against three fictional fixtures (grounding, tool calls and routing). It is not mounted by the cinematic homepage. Its checks use no live models, credentials or production traces, and its answer check is a string assertion rather than semantic faithfulness scoring.
 
 Career facts remain in `src/data/portfolio.ts`, maintained from the supplied source résumés. Enterprise engagements are career case studies; Jarvis is a personal project. No unsupported employers, metrics, public repositories or certificate URLs were added. The résumé PDF is the unchanged supplied source.
 
-The current interface is in `src/components/PortfolioExperience.tsx` and `src/portfolio.css`; the lab is in `src/components/QualityLab.tsx` and `src/data/evaluation.ts`. Earlier cinematic components and audio assets are retained in the repository but are not loaded by the homepage. The current runtime has no intro gate, custom cursor or scroll interception.
+The current interface is composed in `src/App.tsx`, with cinematic components and styles in `src/index.css`. It uses an intro, custom cursor and Lenis scrolling. The retained editorial alternative lives in `src/components/PortfolioExperience.tsx` and `src/portfolio.css`; its lab is in `src/components/QualityLab.tsx` and `src/data/evaluation.ts`.
 
 ## Hosting
 

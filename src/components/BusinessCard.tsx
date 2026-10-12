@@ -14,6 +14,9 @@ export default function BusinessCard() {
     const dismiss = (event: PointerEvent) => {
       if (!root.current?.contains(event.target as Node)) setOpen(false);
     };
+    const dismissOnFocusOutside = (event: FocusEvent) => {
+      if (!root.current?.contains(event.target as Node)) setOpen(false);
+    };
     const escape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         event.preventDefault();
@@ -23,9 +26,11 @@ export default function BusinessCard() {
       }
     };
     document.addEventListener('pointerdown', dismiss);
+    document.addEventListener('focusin', dismissOnFocusOutside);
     window.addEventListener('keydown', escape, true);
     return () => {
       document.removeEventListener('pointerdown', dismiss);
+      document.removeEventListener('focusin', dismissOnFocusOutside);
       window.removeEventListener('keydown', escape, true);
     };
   }, [open]);
@@ -48,9 +53,7 @@ export default function BusinessCard() {
   };
 
   return (
-    <div ref={root} className="fixed right-[var(--gutter)] top-3 z-[130] sm:top-4" onBlur={(event) => {
-      if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
-    }}>
+    <div ref={root} className="fixed right-[var(--gutter)] top-3 z-[130] sm:top-4">
       <button ref={trigger} type="button" aria-expanded={open} aria-controls="business-card" onClick={() => setOpen(!open)} className="flex min-h-11 items-center gap-2 rounded-full border border-white/20 bg-ink/95 px-4 text-xs font-semibold text-bone shadow-lg backdrop-blur-xl transition hover:border-crimson-2">
         <span aria-hidden className="flex h-6 w-6 items-center justify-center rounded-full bg-crimson text-[10px]">SP</span>
         Contact card <span aria-hidden>{open ? '−' : '↗'}</span>

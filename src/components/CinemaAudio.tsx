@@ -10,8 +10,7 @@ const fallbackNarration: Record<string, string> = {
   moments: "The impact is practical: stronger automation coverage, fewer escaped defects, faster releases and better visibility into risk. I focus on outcomes that engineering and business teams can understand and trust.",
 };
 
-// Narration uses browser speech synthesis directly. Remote audio URLs previously returned HTML,
-// which caused playback failures before the fallback could run.
+// Local narration is primary; device speech remains a fallback if media playback fails.
 
 export default function CinemaAudio({ active, visible }: { active: boolean; visible: boolean }) {
   const [enabled, setEnabled] = useState(false);
@@ -20,6 +19,8 @@ export default function CinemaAudio({ active, visible }: { active: boolean; visi
   const [topic, setTopic] = useState('top');
   const [status, setStatus] = useState('');
   const [volume, setVolume] = useState(72);
+  const volumeRef = useRef(volume);
+  volumeRef.current = volume;
   const score = useRef<HTMLAudioElement | null>(null);
   const narration = useRef<HTMLAudioElement | null>(null);
   const last = useRef('');
@@ -44,7 +45,7 @@ export default function CinemaAudio({ active, visible }: { active: boolean; visi
       utterance.lang = preferred?.lang ?? 'en-GB';
       utterance.rate = 0.91;
       utterance.pitch = 0.9;
-      utterance.volume = Math.max(0, Math.min(1, volume / 100));
+      utterance.volume = Math.max(0, Math.min(1, volumeRef.current / 100));
       utterance.onstart = () => { setSpeaking(true); setStatus(preferred ? `Narrating with ${preferred.name}.` : 'Narrating with your device voice.'); };
       utterance.onend = () => { setSpeaking(false); setStatus('Narration complete.'); };
       utterance.onerror = (event) => {
@@ -76,16 +77,29 @@ export default function CinemaAudio({ active, visible }: { active: boolean; visi
         start();
       }, 700);
     }
-  }, [volume]);
+  }, []);
 
   const announce = useCallback((id: string) => {
     narration.current?.pause();
-    narration.current = null;
+    const clip = new Audio(id === 'top' ? '/audio/opening.wav' : `/audio/${id}.wav`);
+    narration.current = clip;
     last.current = id;
     const bed = score.current;
-    if (bed) bed.volume = (volume / 100) * 0.045;
-    speakFallback(id);
-  }, [speakFallback, volume]);
+    if (bed) bed.volume = (volumeRef.current / 100) * 0.045;
+    clip.volume = volumeRef.current / 100;
+    const restore = () => { if (bed) bed.volume = (volumeRef.current / 100) * 0.18; setSpeaking(false); };
+    clip.onplaying = () => setSpeaking(true);
+    clip.onended = restore;
+    let fallbackStarted = false;
+    const fallback = () => {
+      if (narration.current !== clip || fallbackStarted) return;
+      fallbackStarted = true;
+      restore();
+      speakFallback(id);
+    };
+    clip.onerror = fallback;
+    clip.play().catch(fallback);
+  }, [speakFallback]);
 
   const enable = useCallback(() => {
     setStatus('');

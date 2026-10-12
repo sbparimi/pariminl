@@ -236,7 +236,6 @@ html { scroll-behavior: smooth; scroll-padding-top: 100px; }
   .p-brand-name { display: none; }
   .p-nav { gap: 22px; }
   .p-hero-grid { gap: 28px; }
-  .p-architecture { height: 485px; }
   .p-arch-core { left: 7%; right: 7%; }
   .p-node-request { left: 5%; }
   .p-node-context { right: 5%; }
@@ -267,7 +266,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 100px; }
   .p-button { font-size: 11px; padding: 13px 17px; gap: 16px; min-height: 48px; }
   .p-hero-actions .p-text-link { font-size: 10px; }
   .p-hero-footnote { font-size: 9px; line-height: 1.8; }
-  .p-architecture { height: 480px; max-width: 520px; width: 100%; }
+  .p-architecture { max-width: 520px; width: 100%; }
   .p-arch-core { left: 10%; right: 10%; }
   .p-arch-core > strong { font-size: 25px; }
   .p-arch-core > div { right: 20px; }

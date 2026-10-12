@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import { sectionMeta, type SectionId } from '../data/portfolio';
 import { useSmoothScroll } from '../hooks/smoothScroll';
@@ -12,12 +12,26 @@ export default function Navbar({ order }: { order: SectionId[] }) {
   const [mobileNav, setMobileNav] = useState(false);
   const [active, setActive] = useState<string>('top');
   const { scrollTo } = useSmoothScroll();
+  const header = useRef<HTMLElement>(null);
+  const menuToggle = useRef<HTMLButtonElement>(null);
 
   useMotionValueEvent(scrollY, 'change', (y) => {
     const prev = scrollY.getPrevious() ?? 0;
     setSolid(y > 40);
-    setHidden(y > 400 && y > prev && !mobileNav);
+    setHidden(y > 400 && y > prev && !mobileNav && !header.current?.contains(document.activeElement));
   });
+
+  useEffect(() => {
+    if (!mobileNav) return;
+    const dismiss = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileNav(false);
+        menuToggle.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', dismiss);
+    return () => window.removeEventListener('keydown', dismiss);
+  }, [mobileNav]);
 
   useEffect(() => {
     const ids = ['top', ...order];
@@ -42,6 +56,8 @@ export default function Navbar({ order }: { order: SectionId[] }) {
 
   return (
     <motion.header
+      ref={header}
+      onFocusCapture={() => setHidden(false)}
       className="fixed inset-x-0 top-0 z-[60]"
       animate={{ y: hidden ? '-100%' : '0%' }}
       transition={{ duration: 0.45, ease: EASE }}
@@ -74,8 +90,10 @@ export default function Navbar({ order }: { order: SectionId[] }) {
           <button
             type="button"
             className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden"
+            ref={menuToggle}
             aria-label={mobileNav ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileNav}
+            aria-controls="cinematic-mobile-navigation"
             onClick={() => setMobileNav((v) => !v)}
           >
             <motion.span className="block h-0.5 w-5 bg-bone" animate={{ rotate: mobileNav ? 45 : 0, y: mobileNav ? 4 : 0 }} />
@@ -87,6 +105,7 @@ export default function Navbar({ order }: { order: SectionId[] }) {
       <AnimatePresence>
         {mobileNav && (
           <motion.nav
+            id="cinematic-mobile-navigation"
             aria-label="Sections"
             className="gutter border-b border-white/5 bg-ink/95 pb-6 pt-2 backdrop-blur-xl lg:hidden"
             initial={{ clipPath: 'inset(0 0 100% 0)' }}
