@@ -8,7 +8,7 @@ Run `npm ci` if dependencies are missing, then `npm run dev -- --host 127.0.0.1 
 
 ## Current experience
 
-The homepage opens with a skippable cinematic sequence, followed by career chapters, selected work, skills and résumé actions. Story playback and Continue controls are available immediately. All narration is locally hosted; audible autoplay may require a visitor interaction. Native modal dialogs provide the highlight reel, project case studies and résumé viewer. Sound controls manage music, narration and volume.
+The homepage opens with the approved 15-second luxury cinematic MP4, followed by career chapters, selected work, skills and résumé actions. The landing introduction and Play Intro replay use the same unmodified master in `public/video/`. The player preserves the full frame with `object-fit: contain`, plays inline on phones and has native media controls. Playback starts through an explicit sound-enabled button; Skip/Continue remains available and finishing the film enters the portfolio. Its existing soundtrack and narration are the only intro audio. `intro-manifest.json` records the original SHA-256, verified during every build. Native modal dialogs provide the introduction, project case studies and résumé viewer.
 
 The retained editorial interface includes an AI quality lab with six deterministic assertions against three fictional fixtures (grounding, tool calls and routing). It is not mounted by the cinematic homepage. Its checks use no live models, credentials or production traces, and its answer check is a string assertion rather than semantic faithfulness scoring.
 

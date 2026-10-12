@@ -35,6 +35,18 @@
   color: inherit;
 }
 .cinema-dialog::backdrop { background: transparent; }
+.intro-film-dialog { overflow-y: auto; }
+.intro-film-layout { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 24px; }
+.intro-film-heading { text-align: center; }
+.intro-film-heading h2 { color: #e8cc9f; font-size: 14px; font-weight: 600; letter-spacing: .22em; }
+.intro-film-heading p { color: #a7a6ad; font-size: 12px; margin-top: 7px; }
+.intro-film-video { display: block; width: 100%; max-width: min(1600px, max(240px, calc((100dvh - 210px) * 16 / 9))); height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #000; flex-shrink: 0; }
+.intro-film-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+.intro-film-actions button { min-height: 44px; border-radius: 6px; padding: 12px 20px; font-size: 12px; cursor: pointer; }
+.intro-film-play { background: #e8cc9f; color: #14100b; font-weight: 700; }
+.intro-film-skip { border: 1px solid #ffffff40; color: #f4f1ec; background: #111; }
+.intro-film-status { min-height: 18px; max-width: 600px; color: #a7a6ad; text-align: center; font-size: 12px; }
+@media (max-width: 600px) { .intro-film-layout { padding: 16px; } .intro-film-actions { width: 100%; } .intro-film-actions button { width: 100%; } }
 .has-custom-cursor .cinema-dialog,
 .has-custom-cursor .cinema-dialog * { cursor: auto; }
 .has-custom-cursor .cinema-dialog :is(button, a) { cursor: pointer; }

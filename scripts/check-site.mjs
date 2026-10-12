@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 
 const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 const required = [
@@ -31,8 +32,11 @@ for (const path of [
 
 const opening = readFileSync(new URL('../src/components/OpeningSequence.tsx', import.meta.url), 'utf8');
 assert.match(opening, /SKIP INTRO/, 'The cinematic opening must always expose a skip control');
-assert.match(opening, /at: 13800, beat: 8/, 'The opening must reach the portfolio promptly');
-assert.doesNotMatch(opening, /44000/, 'The opening must not block the portfolio for 44 seconds');
+const introManifest = JSON.parse(readFileSync(new URL('../public/video/intro-manifest.json', import.meta.url), 'utf8'));
+const introVideo = readFileSync(new URL(`../public/video/${introManifest.file}`, import.meta.url));
+assert.equal(introVideo.toString('ascii', 4, 8), 'ftyp', 'Introduction must be a valid MP4 file');
+assert.equal(createHash('sha256').update(introVideo).digest('hex'), introManifest.sha256, 'The introduction must match the approved master exactly');
+assert.ok(existsSync(new URL('../public/video/suresh-parimi-luxury-intro-poster.jpg', import.meta.url)), 'Intro poster must be available');
 
 const hero = readFileSync(new URL('../src/components/Hero.tsx', import.meta.url), 'utf8');
 assert.doesNotMatch(hero, /calendar\.google\.com\/calendar\/render\?action=TEMPLATE/, 'Do not present an event template as a booking workflow');

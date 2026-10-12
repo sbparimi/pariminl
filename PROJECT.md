@@ -32,9 +32,13 @@ Optional regeneration scripts are in `scripts/`; see the README for dependencies
 
 The current homepage uses the cinematic interface composed in `src/App.tsx`,
 including a skippable opening, audio controls, custom cursor and Lenis scrolling.
-Opening narration, career chapters and music use local assets. Opening controls
-are available immediately, including an explicit story playback button for
-browsers that block autoplay. The editorial alternative in
+The introduction and its Play Intro replay use the identical approved 15-second
+MP4 in `public/video/suresh-parimi-luxury-intro.mp4`, with its original soundtrack
+and narration. It is displayed without cropping, filters, text overlays or
+additional intro audio. Playback and Skip/Continue controls are available
+immediately; completing playback enters the portfolio. The file's SHA-256 is
+recorded in `public/video/intro-manifest.json` and checked during every build.
+Career chapters and music use local assets. The editorial alternative in
 `PortfolioExperience.tsx` and `portfolio.css` is retained but not mounted. Its
 browser-local AI quality lab uses fictional fixtures, six deterministic assertions,
 editable answers, trace inspection and JSON report export. It makes no live model
