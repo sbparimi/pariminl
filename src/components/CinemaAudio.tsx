@@ -150,14 +150,28 @@ export default function CinemaAudio({ active, visible }: { active: boolean; visi
     if (enabled && music && active) bed?.play().catch(() => setStatus('Audio could not start. Tap Sound to retry.'));
     else bed?.pause();
     if (!enabled || !voice || !active || document.hidden) {
-      narration.current?.pause(); setSpeaking(false); last.current = ''; return;
+      narration.current?.pause();
+      if (!voice || !enabled || !active) window.speechSynthesis?.cancel();
+      setSpeaking(false); last.current = ''; return;
     }
     if (last.current !== topic) announce(topic);
   }, [enabled, music, voice, topic, active, announce]);
 
   const toggle = () => {
-    if (enabled) { score.current?.pause(); narration.current?.pause(); setEnabled(false); }
-    else { setStatus(''); if (music) score.current?.play().catch(() => setStatus('Music could not start.')); if (voice) announce(topic); setEnabled(true); }
+    if (enabled) {
+      score.current?.pause();
+      narration.current?.pause();
+      window.speechSynthesis?.cancel();
+      setSpeaking(false);
+      last.current = '';
+      setEnabled(false);
+      setStatus('Sound off.');
+    } else {
+      setStatus('');
+      if (music) score.current?.play().catch(() => setStatus('Music could not start.'));
+      if (voice) announce(topic);
+      setEnabled(true);
+    }
   };
 
   if (!visible) return null;
@@ -186,7 +200,7 @@ export default function CinemaAudio({ active, visible }: { active: boolean; visi
         />
         <span className="w-8 text-right text-[10px] tabular-nums text-mist">{volume}%</span>
       </div>}
-      {enabled && <button onClick={() => { setVoice(true); announce(topic); }} className="mt-2 text-xs text-bone underline underline-offset-4">Replay voice</button>}
+      {enabled && <button onClick={() => { window.speechSynthesis?.cancel(); setSpeaking(false); setStatus(''); last.current = topic; announce(topic); }} className="mt-2 text-xs text-bone underline underline-offset-4">Replay voice</button>}
       {enabled && <p className="mt-2 max-w-64 truncate text-[10px] uppercase tracking-widest text-mist">{speaking ? 'Narrating · ' : ''}{labels[topic]}</p>}
       {status && <p role="status" className="mt-2 max-w-64 text-xs text-mist">{status}</p>}
     </aside>
