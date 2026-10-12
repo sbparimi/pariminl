@@ -83,6 +83,39 @@ body {
   100% { transform: translate(0, 0); }
 }
 
+/* Cinematic episode conveyor: duplicated track moves right-to-left through a 3D perspective. */
+.episode-viewport {
+  overflow: hidden;
+  transform-style: preserve-3d;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+.episode-track {
+  animation: episode-drift 58s linear infinite;
+  will-change: transform;
+}
+.episode-track:hover {
+  animation-play-state: paused;
+}
+.episode-track-static {
+  animation: none;
+  overflow-x: auto;
+}
+.episode-card {
+  backface-visibility: hidden;
+}
+@keyframes episode-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+@media (max-width: 640px) {
+  .episode-track { animation-duration: 48s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .episode-track { animation: none !important; }
+  .episode-viewport { overflow-x: auto; }
+}
+
 /* Hide scrollbars on horizontal rails while keeping them scrollable */
 .rail {
   scrollbar-width: none;
