@@ -10,14 +10,8 @@ const fallbackNarration: Record<string, string> = {
   moments: "The impact is practical: stronger automation coverage, fewer escaped defects, faster releases and better visibility into risk. I focus on outcomes that engineering and business teams can understand and trust.",
 };
 
-// Natural voiceovers generated specifically for the target role narrative.
-// Other chapters retain their existing locally hosted narration.
-const voiceoverUrls: Record<string, string> = {
-  top: 'https://www.aidocmaker.com/g0/audio?name=e09198abb76042c48c678848905aabfd',
-  about: 'https://www.aidocmaker.com/g0/audio?name=e09198abb76042c48c678848905aabfd',
-  journey: 'https://www.aidocmaker.com/g0/audio?name=dd735e4c7b9a41f88298d05d95a4e17e',
-  moments: 'https://www.aidocmaker.com/g0/audio?name=dd735e4c7b9a41f88298d05d95a4e',
-};
+// Narration uses browser speech synthesis directly. Remote audio URLs previously returned HTML,
+// which caused playback failures before the fallback could run.
 
 export default function CinemaAudio({ active, visible }: { active: boolean; visible: boolean }) {
   const [enabled, setEnabled] = useState(false);
@@ -33,35 +27,65 @@ export default function CinemaAudio({ active, visible }: { active: boolean; visi
 
   const speakFallback = useCallback((id: string) => {
     if (!('speechSynthesis' in window)) {
-      setStatus('Narration is unavailable in this browser. Check your audio settings and try again.');
+      setStatus('Voice narration is not supported in this browser. Try Safari or Chrome with audio enabled.');
+      setSpeaking(false);
       return;
     }
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(fallbackNarration[id] ?? fallbackNarration.top);
-    utterance.lang = 'en-GB';
-    utterance.rate = 0.94;
-    utterance.pitch = 0.96;
-    utterance.volume = Math.max(0, Math.min(1, volume / 100));
-    utterance.onstart = () => { setSpeaking(true); setStatus('Using built-in voice narration.'); };
-    utterance.onend = () => setSpeaking(false);
-    utterance.onerror = () => { setSpeaking(false); setStatus('Voice narration could not start. Click Replay voice to retry.'); };
-    window.speechSynthesis.speak(utterance);
+    const synth = window.speechSynthesis;
+    synth.cancel();
+    const text = fallbackNarration[id] ?? fallbackNarration.top;
+    const start = () => {
+      const utterance = new SpeechSynthesisUtterance(text);
+      const voices = synth.getVoices();
+      const preferred = voices.find(v => /^en-GB$/i.test(v.lang) && /natural|premium|enhanced|daniel|serena/i.test(v.name))
+        ?? voices.find(v => /^en-GB$/i.test(v.lang))
+        ?? voices.find(v => /^en(-|_)/i.test(v.lang));
+      if (preferred) utterance.voice = preferred;
+      utterance.lang = preferred?.lang ?? 'en-GB';
+      utterance.rate = 0.91;
+      utterance.pitch = 0.9;
+      utterance.volume = Math.max(0, Math.min(1, volume / 100));
+      utterance.onstart = () => { setSpeaking(true); setStatus(preferred ? `Narrating with ${preferred.name}.` : 'Narrating with your device voice.'); };
+      utterance.onend = () => { setSpeaking(false); setStatus('Narration complete.'); };
+      utterance.onerror = (event) => {
+        setSpeaking(false);
+        setStatus(event.error === 'not-allowed'
+          ? 'Tap Replay voice to allow narration, and check device silent mode and volume.'
+          : 'Voice playback failed on this device. Tap Replay voice to retry.');
+      };
+      synth.speak(utterance);
+      // Some browsers expose voices asynchronously and can silently drop the first utterance.
+      window.setTimeout(() => {
+        if (synth.paused) synth.resume();
+      }, 150);
+    };
+    if (synth.getVoices().length) start();
+    else {
+      let finished = false;
+      const onVoices = () => {
+        if (finished) return;
+        finished = true;
+        synth.removeEventListener('voiceschanged', onVoices);
+        start();
+      };
+      synth.addEventListener('voiceschanged', onVoices);
+      window.setTimeout(() => {
+        if (finished) return;
+        finished = true;
+        synth.removeEventListener('voiceschanged', onVoices);
+        start();
+      }, 700);
+    }
   }, [volume]);
 
   const announce = useCallback((id: string) => {
     narration.current?.pause();
-    const clip = new Audio(voiceoverUrls[id] ?? `/audio/${id}.wav`);
-    narration.current = clip;
+    narration.current = null;
     last.current = id;
     const bed = score.current;
     if (bed) bed.volume = (volume / 100) * 0.045;
-    clip.volume = volume / 100;
-    const restore = () => { if (bed) bed.volume = (volume / 100) * 0.18; setSpeaking(false); };
-    clip.onplaying = () => setSpeaking(true);
-    clip.onended = restore;
-    clip.onerror = () => { restore(); last.current = id; speakFallback(id); };
-    clip.play().catch(() => { restore(); last.current = id; speakFallback(id); });
-  }, [speakFallback]);
+    speakFallback(id);
+  }, [speakFallback, volume]);
 
   const enable = useCallback(() => {
     setStatus('');
