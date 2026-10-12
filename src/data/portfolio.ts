@@ -329,7 +329,7 @@ export const certifications: Certification[] = [
   {
     "issuer": "ISTQB",
     "name": "Certified Tester Foundation Level (CTFL)",
-    "link": ""
+    "link": "https://www.istqb.org/certifications/certified-tester-foundation-level"
   }
 ];
 
