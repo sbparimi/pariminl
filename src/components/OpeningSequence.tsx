@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useModalDialog } from '../hooks/useModalDialog';
 
-/** The original mastered film, displayed without cropping or visual treatment. */
+/** The full narrated life story with supplied personal photographs. */
 export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) => void }) {
   const dialog = useModalDialog();
   const video = useRef<HTMLVideoElement>(null);
@@ -41,13 +41,13 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
       <div className="intro-film-layout" data-lenis-prevent>
         <header className="intro-film-heading">
           <h2 id="intro-film-title">THE QUALITY SERIES</h2>
-          <p id="intro-film-description">Suresh Parimi · A 15-second cinematic introduction</p>
+          <p id="intro-film-description">Suresh Parimi · A 52-second life story · Your photographs, your journey</p>
         </header>
         <video
           ref={video}
           className="intro-film-video"
-          src="/video/suresh-parimi-luxury-intro.mp4"
-          poster="/video/suresh-parimi-luxury-intro-poster.jpg"
+          src="/video/suresh-parimi-life-story.mp4"
+          poster="/video/suresh-parimi-life-story-poster.jpg"
           controls
           playsInline
           preload="auto"
@@ -58,13 +58,14 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
           onEnded={finish}
           onError={() => setStatus('The introduction could not load. You can still continue to the website.')}
         >
+          <track kind="captions" src="/video/suresh-parimi-life-story.vtt" srcLang="en" label="English" default />
           Your browser does not support this video. You can continue to the website below.
         </video>
         <div className="intro-film-actions">
-          <button type="button" data-modal-initial-focus onClick={togglePlayback} className="intro-film-play">{playing ? 'Pause intro' : started ? 'Resume intro' : 'Play intro with sound'}</button>
+          <button type="button" data-modal-initial-focus onClick={togglePlayback} className="intro-film-play">{playing ? 'Pause intro' : started ? 'Resume intro' : 'Play my story with sound'}</button>
           <button type="button" onClick={finish} className="intro-film-skip">SKIP INTRO · CONTINUE TO WEBSITE</button>
         </div>
-        <p role="status" className="intro-film-status">{status || 'Play with sound, or continue directly to the portfolio.'}</p>
+        <p role="status" className="intro-film-status">{status || 'Your original photographs appear in life order. Background settings are cinematic illustrations.'}</p>
       </div>
     </motion.dialog>
   );

@@ -61,3 +61,7 @@ npm run dev -- --host 127.0.0.1 --port 5174 --strictPort
 Use `npm ci` if dependencies need reinstalling. Local environment files and
 deployment metadata remain private; never copy their values into documentation.
 Keep portfolio code, assets, hosting notes and future portfolio changes here.
+
+## Personal-photo life story
+
+The landing introduction and replay now use `public/video/suresh-parimi-life-story.mp4`: the complete 51.7-second original narration, synchronized with the five supplied personal photographs. The standing older child appears upright over the village setting, followed by the college photograph and corporate portraits. Portraits are imported from the original files; faces are not regenerated. Village and technical settings are cinematic illustrations, not verified historical location footage. English captions accompany the film. The approved 15-second master remains preserved. `life-story-manifest.json` records the reviewed film and source narration hashes, both checked during builds.

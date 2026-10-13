@@ -57,3 +57,9 @@ assert.match(robots, /https:\/\/parimi\.nl\/sitemap\.xml/i);
 const sitemap = readFileSync(new URL('../public/sitemap.xml', import.meta.url), 'utf8');
 assert.match(sitemap, /<loc>https:\/\/parimi\.nl\/<\/loc>/);
 console.log('Site checks passed: SEO metadata, indexability, canonical URL, structured data and required public assets.');
+
+const lifeManifest = JSON.parse(readFileSync(new URL('../public/video/life-story-manifest.json', import.meta.url), 'utf8'));
+const lifeVideo = readFileSync(new URL(`../public/video/${lifeManifest.file}`, import.meta.url));
+assert.equal(createHash('sha256').update(lifeVideo).digest('hex'), lifeManifest.sha256, 'Life story must match the reviewed film');
+assert.equal(createHash('sha256').update(storyAudio).digest('hex'), lifeManifest.sourceNarrationSha256, 'Preserve the original life narration');
+assert.ok(existsSync(new URL('../public/video/suresh-parimi-life-story.vtt', import.meta.url)), 'Story captions must be available');

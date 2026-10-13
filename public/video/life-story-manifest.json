@@ -1,0 +1,66 @@
+{
+  "file": "suresh-parimi-life-story.mp4",
+  "sha256": "8f8629917ddd9bf4c247e952f6d3e254bb6efffb166fdf24eb5009763d7bf2e6",
+  "sourceNarrationSha256": "10ee8f55a31bd57b336652943837eefa6fd672036641a1ab8e4ab9c8157d842e",
+  "durationSeconds": 51.7,
+  "width": 1920,
+  "height": 1080,
+  "framesPerSecond": 30,
+  "provenance": "Personal photographs supplied by Suresh Parimi. Village and technical backgrounds are cinematic illustrations, not historical location footage.",
+  "chapters": [
+    {
+      "id": "beginning",
+      "start": 0,
+      "end": 2.5,
+      "title": "EVERY JOURNEY HAS A BEGINNING"
+    },
+    {
+      "id": "childhood",
+      "start": 2.5,
+      "end": 9.6,
+      "title": "A VILLAGE. A BIG AMBITION."
+    },
+    {
+      "id": "college",
+      "start": 9.6,
+      "end": 14.2,
+      "title": "THE ENGINEERING FOUNDATION"
+    },
+    {
+      "id": "systems",
+      "start": 14.2,
+      "end": 22.2,
+      "title": "EVIDENCE. NOT ASSUMPTIONS."
+    },
+    {
+      "id": "testing",
+      "start": 22.2,
+      "end": 25.9,
+      "title": "THE FIRST TURN"
+    },
+    {
+      "id": "complexity",
+      "start": 25.9,
+      "end": 35.8,
+      "title": "FIND WHAT COULD FAIL"
+    },
+    {
+      "id": "architecture",
+      "start": 35.8,
+      "end": 40.5,
+      "title": "ENGINEER THE CONFIDENCE"
+    },
+    {
+      "id": "mentoring",
+      "start": 40.5,
+      "end": 44.3,
+      "title": "MAKE THE TEAM STRONGER"
+    },
+    {
+      "id": "leadership",
+      "start": 44.3,
+      "end": 51.7,
+      "title": "HUMAN TRUST. ENGINEERED."
+    }
+  ]
+}
