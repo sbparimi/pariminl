@@ -32,9 +32,8 @@ Optional regeneration scripts are in `scripts/`; see the README for dependencies
 
 The current homepage uses the cinematic interface composed in `src/App.tsx`,
 including a skippable opening, audio controls, custom cursor and Lenis scrolling.
-The introduction and its Play Intro replay use the identical approved 15-second
-MP4 in `public/video/suresh-parimi-luxury-intro.mp4`, with its original soundtrack
-and narration. It is displayed without cropping, filters, text overlays or
+The introduction and replay use the edited moving life-story
+MP4 in `public/video/suresh-parimi-life-story.mp4`. It is displayed without cropping, filters, text overlays or
 additional intro audio. Playback and Skip/Continue controls are available
 immediately; completing playback enters the portfolio. The file's SHA-256 is
 recorded in `public/video/intro-manifest.json` and checked during every build.
@@ -62,6 +61,6 @@ Use `npm ci` if dependencies need reinstalling. Local environment files and
 deployment metadata remain private; never copy their values into documentation.
 Keep portfolio code, assets, hosting notes and future portfolio changes here.
 
-## Personal-photo life story
+## Current life-story film
 
-The landing introduction and replay now use `public/video/suresh-parimi-life-story.mp4`: the complete 51.7-second original narration, synchronized with the five supplied personal photographs. The standing older child appears upright over the village setting, followed by the college photograph and corporate portraits. Portraits are imported from the original files; faces are not regenerated. No generated people appear. Every scene features an original supplied photograph; corporate and college backdrops are soft-focus versions of those same photographs. Only the childhood village landscape is illustrated, not verified historical location footage. English captions accompany the film. The approved 15-second master remains preserved. `life-story-manifest.json` records the reviewed film and source narration hashes, both checked during builds.
+The introduction and replay use the locally edited 44-second existing HeyGen film “From Village Dreams to Quality Engineering”, selected by the user. Full-screen moving presenter footage replaces the framed-photo film. The edit preserves speech timing, replaces the unrelated stock-person shot with engineering detail footage from the same source, applies restrained color grading and audio leveling, and includes English captions. Source resolution is 1280×720 at 25 fps; embedded watermarks remain. No new generation or paid-plan upgrade was used. The film hash is checked during builds. See `docs/cinematic-film-edit.md`.

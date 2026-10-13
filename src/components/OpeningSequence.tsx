@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useModalDialog } from '../hooks/useModalDialog';
 
-/** The full narrated life story with supplied personal photographs. */
+/** The edited existing moving life-story film, shown in its full frame. */
 export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) => void }) {
   const dialog = useModalDialog();
   const video = useRef<HTMLVideoElement>(null);
@@ -41,7 +41,7 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
       <div className="intro-film-layout" data-lenis-prevent>
         <header className="intro-film-heading">
           <h2 id="intro-film-title">THE QUALITY SERIES</h2>
-          <p id="intro-film-description">Suresh Parimi · A 52-second life story · Your photographs, your journey</p>
+          <p id="intro-film-description">Suresh Parimi · A 44-second life story · From village dreams to quality engineering</p>
         </header>
         <video
           ref={video}
@@ -65,7 +65,7 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
           <button type="button" data-modal-initial-focus onClick={togglePlayback} className="intro-film-play">{playing ? 'Pause intro' : started ? 'Resume intro' : 'Play my story with sound'}</button>
           <button type="button" onClick={finish} className="intro-film-skip">SKIP INTRO · CONTINUE TO WEBSITE</button>
         </div>
-        <p role="status" className="intro-film-status">{status || 'Only your original photographs appear throughout. The childhood village landscape is illustrated.'}</p>
+        <p role="status" className="intro-film-status">{status || 'Cinematic edit of your selected moving film. Play with sound, or continue to the portfolio.'}</p>
       </div>
     </motion.dialog>
   );

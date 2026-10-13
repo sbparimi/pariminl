@@ -1,66 +1,34 @@
 {
   "file": "suresh-parimi-life-story.mp4",
-  "sha256": "aa6a8f7c921524d623b92017db922fcd6feec2334d9fca6882c3480c896454d8",
-  "sourceNarrationSha256": "10ee8f55a31bd57b336652943837eefa6fd672036641a1ab8e4ab9c8157d842e",
-  "durationSeconds": 51.7,
-  "width": 1920,
-  "height": 1080,
-  "framesPerSecond": 30,
-  "provenance": "Every scene features original personal photographs supplied by Suresh Parimi. Only the village landscape is illustrated; no generated people or stand-in characters appear.",
+  "sha256": "606320b23dcc403c56f19db9087ed773cfd4d29bc08218a2a0a5cbf9f93e77fd",
+  "sourceVideoId": "e7adabf91e7d44e482747f1403e3c1b1",
+  "sourceVideoTitle": "From Village Dreams to Quality Engineering",
+  "sourceVideoSha256": "9eb04d1b24b33cee2f880e2f7fcbe31ef6527c8d74afc72d7cbb8a4263d150f5",
+  "durationSeconds": 43.9,
+  "width": 1280,
+  "height": 720,
+  "framesPerSecond": 25,
+  "provenance": "Locally edited existing HeyGen film selected by Suresh Parimi. No new generation. Moving presenter footage and source speech preserved. Embedded watermarks remain. Stock-person cutaway replaced with engineering detail footage from the same source.",
   "chapters": [
     {
-      "id": "beginning",
       "start": 0,
-      "end": 2.5,
-      "title": "EVERY JOURNEY HAS A BEGINNING"
+      "title": "A beginning"
     },
     {
-      "id": "childhood",
-      "start": 2.5,
-      "end": 9.6,
-      "title": "A VILLAGE. A BIG AMBITION."
+      "start": 8.16,
+      "title": "Engineering foundations"
     },
     {
-      "id": "college",
-      "start": 9.6,
-      "end": 14.2,
-      "title": "THE ENGINEERING FOUNDATION"
+      "start": 17.84,
+      "title": "Software testing"
     },
     {
-      "id": "systems",
-      "start": 14.2,
-      "end": 22.2,
-      "title": "EVIDENCE. NOT ASSUMPTIONS."
+      "start": 28.48,
+      "title": "Quality leadership"
     },
     {
-      "id": "testing",
-      "start": 22.2,
-      "end": 25.9,
-      "title": "THE FIRST TURN"
-    },
-    {
-      "id": "complexity",
-      "start": 25.9,
-      "end": 35.8,
-      "title": "FIND WHAT COULD FAIL"
-    },
-    {
-      "id": "architecture",
-      "start": 35.8,
-      "end": 40.5,
-      "title": "ENGINEER THE CONFIDENCE"
-    },
-    {
-      "id": "mentoring",
-      "start": 40.5,
-      "end": 44.3,
-      "title": "MAKE THE TEAM STRONGER"
-    },
-    {
-      "id": "leadership",
-      "start": 44.3,
-      "end": 51.7,
-      "title": "HUMAN TRUST. ENGINEERED."
+      "start": 39.06,
+      "title": "Evidence and confidence"
     }
   ]
 }

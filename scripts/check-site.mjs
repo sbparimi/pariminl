@@ -61,12 +61,5 @@ console.log('Site checks passed: SEO metadata, indexability, canonical URL, stru
 const lifeManifest = JSON.parse(readFileSync(new URL('../public/video/life-story-manifest.json', import.meta.url), 'utf8'));
 const lifeVideo = readFileSync(new URL(`../public/video/${lifeManifest.file}`, import.meta.url));
 assert.equal(createHash('sha256').update(lifeVideo).digest('hex'), lifeManifest.sha256, 'Life story must match the reviewed film');
-assert.equal(createHash('sha256').update(storyAudio).digest('hex'), lifeManifest.sourceNarrationSha256, 'Preserve the original life narration');
+assert.equal(lifeManifest.sourceVideoId, 'e7adabf91e7d44e482747f1403e3c1b1', 'Use the user-selected life-story source');
 assert.ok(existsSync(new URL('../public/video/suresh-parimi-life-story.vtt', import.meta.url)), 'Story captions must be available');
-
-const storyboard = JSON.parse(readFileSync(new URL('../docs/life-story-storyboard.json', import.meta.url), 'utf8'));
-const personalPhotos = new Set(['childhood-original', 'college-original', 'corporate-original', 'amsterdam-original', 'leader-original']);
-for (const scene of storyboard.scenes) {
-  assert.ok(personalPhotos.has(scene.photo), 'Every scene must feature a supplied original photograph');
-  assert.ok(scene.background === scene.photo || (scene.photo === 'childhood-original' && scene.background === '01-village'), 'No generated people or unrelated background images may appear in the story');
-}
