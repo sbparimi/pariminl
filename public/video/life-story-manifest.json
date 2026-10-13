@@ -1,12 +1,12 @@
 {
   "file": "suresh-parimi-life-story.mp4",
-  "sha256": "8f8629917ddd9bf4c247e952f6d3e254bb6efffb166fdf24eb5009763d7bf2e6",
+  "sha256": "aa6a8f7c921524d623b92017db922fcd6feec2334d9fca6882c3480c896454d8",
   "sourceNarrationSha256": "10ee8f55a31bd57b336652943837eefa6fd672036641a1ab8e4ab9c8157d842e",
   "durationSeconds": 51.7,
   "width": 1920,
   "height": 1080,
   "framesPerSecond": 30,
-  "provenance": "Personal photographs supplied by Suresh Parimi. Village and technical backgrounds are cinematic illustrations, not historical location footage.",
+  "provenance": "Every scene features original personal photographs supplied by Suresh Parimi. Only the village landscape is illustrated; no generated people or stand-in characters appear.",
   "chapters": [
     {
       "id": "beginning",

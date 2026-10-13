@@ -65,7 +65,7 @@ export default function OpeningSequence({ onDone }: { onDone: (sound?: boolean) 
           <button type="button" data-modal-initial-focus onClick={togglePlayback} className="intro-film-play">{playing ? 'Pause intro' : started ? 'Resume intro' : 'Play my story with sound'}</button>
           <button type="button" onClick={finish} className="intro-film-skip">SKIP INTRO · CONTINUE TO WEBSITE</button>
         </div>
-        <p role="status" className="intro-film-status">{status || 'Your original photographs appear in life order. Background settings are cinematic illustrations.'}</p>
+        <p role="status" className="intro-film-status">{status || 'Only your original photographs appear throughout. The childhood village landscape is illustrated.'}</p>
       </div>
     </motion.dialog>
   );

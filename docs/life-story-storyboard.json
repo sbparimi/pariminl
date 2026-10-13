@@ -1,34 +1,168 @@
 {
-  "title": "The Quality Series — A Life in Evidence",
+  "title": "The Quality Series \u2014 A Life in Evidence",
   "narration": "public/audio/opening.wav",
   "duration": 51.7,
-  "provenance": "Personal photographs supplied by Suresh Parimi. Village and technical backgrounds are cinematic illustrations, not historical location footage.",
+  "provenance": "Every scene features original personal photographs supplied by Suresh Parimi. Only the village landscape is illustrated; no generated people or stand-in characters appear.",
   "scenes": [
-    {"id":"beginning","start":0,"end":2.5,"background":"01-village","title":"EVERY JOURNEY HAS A BEGINNING","subtitle":"A. Kondapuram · near Tadipatri · Andhra Pradesh"},
-    {"id":"childhood","start":2.5,"end":9.6,"background":"01-village","photo":"childhood-original","rotate":90,"title":"A VILLAGE. A BIG AMBITION.","subtitle":"The childhood photograph · the standing older child is Suresh"},
-    {"id":"college","start":9.6,"end":14.2,"background":"03-engineering","photo":"college-original","title":"THE ENGINEERING FOUNDATION","subtitle":"Electrical & Electronics Engineering"},
-    {"id":"systems","start":14.2,"end":22.2,"background":"03-engineering","photo":"college-original","title":"EVIDENCE. NOT ASSUMPTIONS.","subtitle":"Think in systems · trace the source · inspect the evidence"},
-    {"id":"testing","start":22.2,"end":25.9,"background":"04-first-testing","photo":"corporate-original","title":"THE FIRST TURN","subtitle":"Software testing becomes a craft"},
-    {"id":"complexity","start":25.9,"end":35.8,"background":"05-complexity","photo":"corporate-original","title":"FIND WHAT COULD FAIL","subtitle":"Observe → Trace → Test → Learn"},
-    {"id":"architecture","start":35.8,"end":40.5,"background":"06-architecture","photo":"corporate-original","title":"ENGINEER THE CONFIDENCE","subtitle":"Automation architecture · release leadership"},
-    {"id":"mentoring","start":40.5,"end":44.3,"background":"07-mentoring","photo":"amsterdam-original","title":"MAKE THE TEAM STRONGER","subtitle":"Global team mentoring · shared engineering judgement"},
-    {"id":"leadership","start":44.3,"end":51.7,"background":"08-ai-leadership","photo":"leader-original","title":"HUMAN TRUST. ENGINEERED.","subtitle":"Suresh Parimi · Quality Engineering Leadership"}
+    {
+      "id": "beginning",
+      "start": 0,
+      "end": 2.5,
+      "background": "01-village",
+      "title": "EVERY JOURNEY HAS A BEGINNING",
+      "subtitle": "A. Kondapuram \u00b7 near Tadipatri \u00b7 Andhra Pradesh",
+      "photo": "childhood-original",
+      "rotate": 90
+    },
+    {
+      "id": "childhood",
+      "start": 2.5,
+      "end": 9.6,
+      "background": "01-village",
+      "photo": "childhood-original",
+      "rotate": 90,
+      "title": "A VILLAGE. A BIG AMBITION.",
+      "subtitle": "The childhood photograph \u00b7 the standing older child is Suresh"
+    },
+    {
+      "id": "college",
+      "start": 9.6,
+      "end": 14.2,
+      "background": "college-original",
+      "photo": "college-original",
+      "title": "THE ENGINEERING FOUNDATION",
+      "subtitle": "Electrical & Electronics Engineering"
+    },
+    {
+      "id": "systems",
+      "start": 14.2,
+      "end": 22.2,
+      "background": "college-original",
+      "photo": "college-original",
+      "title": "EVIDENCE. NOT ASSUMPTIONS.",
+      "subtitle": "Think in systems \u00b7 trace the source \u00b7 inspect the evidence"
+    },
+    {
+      "id": "testing",
+      "start": 22.2,
+      "end": 25.9,
+      "background": "corporate-original",
+      "photo": "corporate-original",
+      "title": "THE FIRST TURN",
+      "subtitle": "Software testing becomes a craft"
+    },
+    {
+      "id": "complexity",
+      "start": 25.9,
+      "end": 35.8,
+      "background": "corporate-original",
+      "photo": "corporate-original",
+      "title": "FIND WHAT COULD FAIL",
+      "subtitle": "Observe \u2192 Trace \u2192 Test \u2192 Learn"
+    },
+    {
+      "id": "architecture",
+      "start": 35.8,
+      "end": 40.5,
+      "background": "corporate-original",
+      "photo": "corporate-original",
+      "title": "ENGINEER THE CONFIDENCE",
+      "subtitle": "Automation architecture \u00b7 release leadership"
+    },
+    {
+      "id": "mentoring",
+      "start": 40.5,
+      "end": 44.3,
+      "background": "amsterdam-original",
+      "photo": "amsterdam-original",
+      "title": "MAKE THE TEAM STRONGER",
+      "subtitle": "Global team mentoring \u00b7 shared engineering judgement"
+    },
+    {
+      "id": "leadership",
+      "start": 44.3,
+      "end": 51.7,
+      "background": "leader-original",
+      "photo": "leader-original",
+      "title": "HUMAN TRUST. ENGINEERED.",
+      "subtitle": "Suresh Parimi \u00b7 Quality Engineering Leadership"
+    }
   ],
   "captions": [
-    [0,2.48,"Every journey has a beginning."],
-    [2.5,6.92,"Mine started in a small village in India, with a big ambition"],
-    [6.92,9.3,"to build a future through learning."],
-    [10.05,13.9,"I completed my Electrical and Electronics Engineering degree."],
-    [14.16,16.95,"It taught me to think in systems,"],
-    [16.95,19.75,"trace a problem to its source, and look for evidence,"],
-    [19.75,21.75,"not assumptions."],
-    [22.24,25.82,"My first turn into software was software testing."],
-    [25.94,29.78,"What began as a way to understand whether technology worked"],
-    [29.78,31.92,"became a craft:"],
-    [32.1,35.55,"finding what could fail before it mattered to someone."],
-    [35.82,38.55,"Over eighteen years, that craft grew into"],
-    [38.55,42.1,"automation architecture, release leadership,"],
-    [42.48,46.05,"global team mentoring and AI quality engineering,"],
-    [46.22,51.15,"helping teams ship with stronger evidence and confidence."]
+    [
+      0,
+      2.48,
+      "Every journey has a beginning."
+    ],
+    [
+      2.5,
+      6.92,
+      "Mine started in a small village in India, with a big ambition"
+    ],
+    [
+      6.92,
+      9.3,
+      "to build a future through learning."
+    ],
+    [
+      10.05,
+      13.9,
+      "I completed my Electrical and Electronics Engineering degree."
+    ],
+    [
+      14.16,
+      16.95,
+      "It taught me to think in systems,"
+    ],
+    [
+      16.95,
+      19.75,
+      "trace a problem to its source, and look for evidence,"
+    ],
+    [
+      19.75,
+      21.75,
+      "not assumptions."
+    ],
+    [
+      22.24,
+      25.82,
+      "My first turn into software was software testing."
+    ],
+    [
+      25.94,
+      29.78,
+      "What began as a way to understand whether technology worked"
+    ],
+    [
+      29.78,
+      31.92,
+      "became a craft:"
+    ],
+    [
+      32.1,
+      35.55,
+      "finding what could fail before it mattered to someone."
+    ],
+    [
+      35.82,
+      38.55,
+      "Over eighteen years, that craft grew into"
+    ],
+    [
+      38.55,
+      42.1,
+      "automation architecture, release leadership,"
+    ],
+    [
+      42.48,
+      46.05,
+      "global team mentoring and AI quality engineering,"
+    ],
+    [
+      46.22,
+      51.15,
+      "helping teams ship with stronger evidence and confidence."
+    ]
   ]
 }
